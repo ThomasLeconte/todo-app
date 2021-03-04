@@ -9,6 +9,15 @@
 
 </template>
 
+<script>
+export default {
+  mounted(){
+    this.$store.commit('account/load');
+    //console.log(this.$store.getters["account/getProfile"]);
+  }
+}
+</script>
+
 <style>
 .app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

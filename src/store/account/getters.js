@@ -1,3 +1,3 @@
-export function getAccount(){
-    return;
+export function getProfile(state){
+    return state.profile;
 }
