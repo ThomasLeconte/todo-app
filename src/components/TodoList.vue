@@ -1,4 +1,5 @@
 <template>
+
     <div clas="boutons">
         <input v-on:click="filterAll" type="button" value="All">
         <input v-on:click="filterCheck" type="button" value="Check">
@@ -100,3 +101,4 @@ export default defineComponent({
   }
 });
 </script>
+
