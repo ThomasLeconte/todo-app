@@ -20,7 +20,7 @@ export default {
     TodoList
   },
   mounted(){
-    console.log(localStorage)
+    this.$store.dispatch("todolist/loadLists");
   },
   computed: {
     ...mapGetters("account", ["getProfile"])

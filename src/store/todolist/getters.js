@@ -1,3 +1,3 @@
-export function getLists(){
-    return;
+export function getLists(state){
+    return state.lists;
 }
