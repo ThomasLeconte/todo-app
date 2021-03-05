@@ -1,6 +1,10 @@
 <template>
   <div class="sidebar-item">
-      {{ this.name }}
+      <p>{{ name }}</p>
+      <div class="actions">
+          <span class="action"><i class="far fa-edit"></i></span>
+          <span class="action"><i class="far fa-trash-alt"></i></span>
+      </div>
   </div>
 </template>
 
@@ -8,11 +12,48 @@
 export default {
     name: 'SidebarItem',
     props:{
+        id: {type: Number},
         name: {type: String, default: "Liste"}
     },
 }
 </script>
 
-<style>
+<style scoped>
+    .sidebar-item{
+        background-color: #ecf0f1;
+        border-radius: 10px;
+        width: 90%;
+        height: 50px;
+        display: flex;
+        justify-content: left;
+        margin-left: 5%;
+        margin-right: 10%;
+        padding-left: 10px;
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+    }
+    .actions{
+        display: none;
+    }
 
+    .action{
+        margin-right: 20px;
+    }
+    .action:hover{
+        color: rgb(241, 205, 42);
+    }
+    .sidebar-item:hover{
+        background-color: #f7f7f7;
+        transition: 0.2s ease-in-out;
+        cursor: pointer;
+    }
+    .sidebar-item:hover > .actions{
+        display: block;
+    }
+
+    .sidebar-item:active{
+        background-color: #17a2ff;
+        color: white;
+    }
 </style>

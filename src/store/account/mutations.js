@@ -4,8 +4,7 @@ export function load(state) {
     }
 }
 
-export function loadProfile(state, data){
+export function setProfile(state, data){
     state.profile = {token: data.token};
     localStorage.setItem("token", data.token);
-    console.log(state);
 }

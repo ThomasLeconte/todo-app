@@ -33,7 +33,7 @@ export default {
         password: this.password
       }
       let response = await this.$store.dispatch('account/login', data);
-      response ? window.location.href = "/home" : this.error = true;
+      response ? this.$router.push('Home') : this.error = true;
     }
   },
   computed: {

@@ -23,13 +23,17 @@ export default {
     Sidebar,
     TodoList
   },
-  mounted(){
-    if(localStorage.getItem("token")){
-      this.$store.dispatch("todolist/loadLists");
+  mounted() {
+    if(this.getLists.length == 0 && this.getProfile != null){
+      this.$store.dispatch("todolist/load");
     }
   },
+  methods: {
+    //async getTodos(){ let test = await this.$store.dispatch("todolist/loadTasksOfList", 30); }
+  },
   computed: {
-    ...mapGetters("account", ["getProfile"])
+    ...mapGetters("account", ["getProfile"]),
+    ...mapGetters("todolist", ["getLists"])
   },
 }
 </script>
@@ -40,10 +44,17 @@ export default {
   }
 
   .first-column{
-    flex-basis: 30%;
+    flex-basis: 25%;
+    background-color: #ecf0f1;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    box-shadow: 5px 0 5px -3px #888;
   }
 
   .second-column{
-    flex-basis: 70%;
+    flex-basis: 75%;
+
+    height: 100vh;
   }
 </style>

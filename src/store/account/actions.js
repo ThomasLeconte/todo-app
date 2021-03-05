@@ -12,10 +12,9 @@ export async function login(context, data) {
     let url = base+"/login?email=" + data.email + "&password=" + data.password
     return axios.post(url)
         .then(response => {
-            console.log(response);
             switch (response.status) {
                 case 200: //OK
-                    context.commit('loadProfile', response.data);
+                    context.commit('setProfile', response.data);
                     return true;
                 case 401: //UNAUTHORIZED
                     context.commit('ERROR_AUTHENTICATED', response.data);
