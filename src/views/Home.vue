@@ -7,7 +7,7 @@
       <TodoList />
     </div>
   </div>
-  <div class="home" v-else>
+  <div class="home-notConnected" v-else>
     Vous n'êtes pas connecté... <router-link to="/login">Connectez vous ici !</router-link>
   </div>
 </template>
@@ -24,7 +24,9 @@ export default {
     TodoList
   },
   mounted(){
-    this.$store.dispatch("todolist/loadLists");
+    if(localStorage.getItem("token")){
+      this.$store.dispatch("todolist/loadLists");
+    }
   },
   computed: {
     ...mapGetters("account", ["getProfile"])
