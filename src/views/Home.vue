@@ -1,7 +1,11 @@
 <template>
   <div class="home" v-if="getProfile != null">
-    <Sidebar />
-    <TodoList />
+    <div class="first-column">
+      <Sidebar />
+    </div>
+    <div class="second-column">
+      <TodoList />
+    </div>
   </div>
   <div class="home" v-else>
     Vous n'êtes pas connecté... <router-link to="/login">Connectez vous ici !</router-link>
@@ -27,3 +31,17 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+  .home{
+    display: flex;
+  }
+
+  .first-column{
+    flex-basis: 30%;
+  }
+
+  .second-column{
+    flex-basis: 70%;
+  }
+</style>
