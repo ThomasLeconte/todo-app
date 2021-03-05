@@ -2,7 +2,10 @@
   <div class="login">
     <h1>Se connecter</h1>
     <div class="success-alert" v-show="getProfile != null">
-      Vous êtes maintenant connecté(e) !
+      Vous êtes déjà connecté !
+    </div>
+    <div class="warning-alert" v-show="error">
+      Veuillez vérifier vos identifiants et réessayez...
     </div>
     <div class="login-form">
       <input type="email" v-model="email" placeholder="Email" class="form-input"/>
@@ -20,16 +23,17 @@ export default {
     return{
       email: null,
       password: null,
-      success: false
+      error: false
     }
   },
   methods: {
-    submit(){
+    async submit(){
       let data = {
         email: this.email,
         password: this.password
       }
-      this.$store.dispatch('account/login', data);
+      let response = await this.$store.dispatch('account/login', data);
+      response ? window.location.href = "/home" : this.error = true;
     }
   },
   computed: {
@@ -46,6 +50,13 @@ export default {
 
   .success-alert{
     background-color: rgba(39, 174, 96,0.4);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    padding: 20px;
+    margin: 20px;
+  }
+
+  .warning-alert{
+    background-color: rgba(231, 76, 60,0.4);
     box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
     padding: 20px;
     margin: 20px;
