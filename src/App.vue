@@ -11,10 +11,11 @@
 
 <script>
 export default {
-  mounted(){
+  async mounted(){
     if("token" in localStorage){
         this.$store.commit("account/load");
     }
+
     if(!("sync" in sessionStorage)){
       sessionStorage.setItem("sync", "false");
     }
@@ -23,6 +24,7 @@ export default {
       console.log("Synchronisation du cache en cours ...");
       if("token" in localStorage){
         if("lists" in localStorage){
+          localStorage.removeItem("lists");
           console.log("Récupération des listes de tâches ...");
           this.$store.commit("todolist/load");
         }
@@ -36,6 +38,7 @@ export default {
         this.$store.commit("account/load");
       }
       if("lists" in localStorage){
+        this.$store.commit("todolist/setSyncState");
         this.$store.commit("todolist/load");
       }
     }

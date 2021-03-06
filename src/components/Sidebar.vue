@@ -45,13 +45,7 @@ export default {
     },
     computed: {
       ...mapGetters("todolist", ["getLists"]),
-      getSyncState(){
-        if(sessionStorage.getItem("sync") == "false"){
-          return false;
-        }else{
-          return true;
-        }  
-      }
+      ...mapGetters("todolist", ["getSyncState"])
     }
 }
 </script>

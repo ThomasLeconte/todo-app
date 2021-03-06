@@ -9,6 +9,10 @@ export function setLists(state, data) {
     localStorage.setItem("lists", JSON.stringify(state.lists));
 }
 
+export function setSyncState(state) {
+    state.sync = true;
+}
+
 export function addList(state, data) {
     state.lists.push(data);
     localStorage.setItem("lists", JSON.stringify(state.lists));

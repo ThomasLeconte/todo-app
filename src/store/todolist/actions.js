@@ -5,13 +5,14 @@ const base = "http://138.68.74.39/api";
  * Méthode permettant de récupérer les listes de l'utilisateur grâce à un appel API
  * @param {*} context - Contexte actuel de l'utilisateur
  */
-export function load(context){
+export async function load(context){
     let token = context.rootGetters["account/getProfile"].token;
     axios.get(base+"/todolists",{
         headers: {'Authorization': 'Bearer '+token}
     }).then(response => {
         if(response.status == 200){
             context.commit("setLists", response.data);
+            context.commit("setSyncState");
         }
     })
     .catch(err => {
