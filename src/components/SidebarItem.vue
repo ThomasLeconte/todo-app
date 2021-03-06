@@ -14,7 +14,7 @@ export default {
     props:{
         id: {type: Number},
         name: {type: String, default: "Liste"}
-    },
+    }
 }
 </script>
 

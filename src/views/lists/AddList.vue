@@ -1,0 +1,100 @@
+<template>
+  <div class="add-list">
+    <div class="form">
+      <div class="form-header">
+        <span class="header-icon"><i class="fas fa-clipboard-list"></i></span>
+        <h2>Ajouter une liste de tâche ...</h2>
+      </div>
+      <div class="form-content">
+        <input type="text" placeholder="Nom de la liste ..."/>
+        <button>Envoyer</button>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'AddList'
+}
+</script>
+
+<style>
+  .add-list{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  .form{
+    display: flex;
+    flex-direction: column;
+    background-color: #FAFAFA;
+    border-radius: 10px;
+    width: 80%;
+    height: 80%;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  }
+
+  .form-header{
+    flex-basis: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .form-content{
+    flex-basis: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .header-icon{
+    font-size: 5em;
+    color: rgb(241, 205, 42);
+    background-color: #333;
+    width: 100px;
+    height: 100px;
+    padding: 20px;
+    border-radius: 100px;
+  }
+
+  .form-content input{
+    background-color: none;
+    border: 2px solid #333;
+    border-radius: 4px;
+    padding: 20px;
+    font-size: 1.5em;
+    width: 40%;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    transition: 0.2s ease-in-out;
+  }
+
+  .form-content input:hover{
+    padding: 23px;
+    transition: 0.2s ease-in-out;
+  }
+
+  .form-content button{
+    margin-top: 20px;
+    background-color: none;
+    border: none;
+    border-radius: 5px;
+    padding: 20px;
+    width: 43.5%;
+    text-transform: uppercase;
+    font-weight: bold;
+    transition: 0.2s ease-in-out;
+    letter-spacing: 2px;
+  }
+
+  .form-content button:hover{
+    padding: 23px;
+    background-color: #17a2ff;
+    color: white;
+    transition: 0.2s ease-in-out;
+  }
+</style>

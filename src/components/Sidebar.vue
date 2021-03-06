@@ -2,12 +2,23 @@
   <div class="sidebar">
       <div class="header">
         <div class="content">
-          Connecté en tant que ...
-          <button>Déconnexion</button>
+          <div class="user-profile">
+            <div class="first-column">
+              <i class="fas fa-user"></i>
+            </div>
+            <div class="second-column">
+              <span class="name">Thomas.L</span>
+              thomasleconte05@gmail.com
+              <button class="button"><i class="fas fa-sign-out-alt"></i> Déconnexion</button>
+            </div>
+          </div>
         </div>
       </div>
       <div class="content">
-        <h2 class="title">Listes disponibles : {{ getLists.length }}</h2>
+        <div class="content-header">
+          <h2 class="title">Listes disponibles : {{ getLists.length }}</h2>
+          <button class="button" style="width:auto" @click="addList"><i class="far fa-plus-square"></i> Ajouter</button>
+        </div>
         <div class="sidebar-list">
           <SidebarItem v-for="item in getLists" :key="item.id" :name="item.name" :id="item.id" />
         </div>
@@ -24,6 +35,11 @@ export default {
     components: {
       SidebarItem
     },
+    methods:{
+      addList(){
+        this.$router.push("/lists/add");
+      }
+    },
     computed: {
         ...mapGetters("todolist", ["getLists"])
     }
@@ -39,7 +55,7 @@ export default {
     width: 100%;
   }
   .header{
-    flex-basis: 25%;
+    flex-basis: 10%;
     width: 100%;
   }
   .sidebar .header .content{
@@ -47,13 +63,11 @@ export default {
     padding-right: 0;
     background-color: #f7f7f7;
     width: 85%;
-    height: 100%;
     border-radius: 10px;
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
   }
   .sidebar .content{
-    flex-basis: 75%;
-    padding-top: 30px;
+    flex-basis: 90%;
     width: 100%;
     margin: 20px;
   }
@@ -67,5 +81,45 @@ export default {
     display: flex;
     flex-direction: column;
     width: 95%;
+    padding-top: 20px;
+  }
+  .user-profile{
+    display: flex;
+  }
+  .user-profile .name{
+    font-weight: bold;
+  }
+  .user-profile .first-column{
+    flex-basis: 30%;
+    font-size: 3em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .user-profile .second-column{
+    flex-basis: 70%;
+  }
+  .button{
+    background-color: #ecf0f1;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 80%;
+    transition: 0.2s ease-in-out;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  }
+  .button:hover{
+    background-color: #17a2ff;
+    color: white;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+  }
+  .content-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 92%;
   }
 </style>
