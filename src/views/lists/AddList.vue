@@ -6,8 +6,8 @@
         <h2>Ajouter une liste de tâche ...</h2>
       </div>
       <div class="form-content">
-        <input type="text" placeholder="Nom de la liste ..."/>
-        <button>Envoyer</button>
+        <input type="text" v-model="nameList" placeholder="Nom de la liste ..."/>
+        <button @click="submit" class="form-submit">Envoyer</button>
       </div>
     </div>
   </div>
@@ -15,7 +15,21 @@
 
 <script>
 export default {
-  name: 'AddList'
+  name: 'AddList',
+  data(){
+    return{
+      nameList: null,
+    }
+  },
+   methods: {
+    submit(){
+      console.log("alo");
+      let data = {
+        nameList: this.nameList,
+      }
+      this.$store.dispatch('account/newList', data);
+    }
+  },
 }
 </script>
 

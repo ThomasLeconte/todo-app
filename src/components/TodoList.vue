@@ -1,5 +1,5 @@
 <template>
-
+  <div class = "all">
     <div clas="boutons">
         <input v-on:click="filterAll" type="button" value="All">
         <input v-on:click="filterCheck" type="button" value="Check">
@@ -15,6 +15,7 @@
             </li>
         </ul>
     </div>
+  </div>
 </template>
 
 
@@ -51,6 +52,7 @@ export default defineComponent({
   methods: {
     updateCompleted(todo){
         todo.completed = !todo.completed
+        console.log(todo);
     },
     ajout(){
         var longueur = this.todos.length+1;

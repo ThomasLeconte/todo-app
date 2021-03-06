@@ -37,9 +37,34 @@ export function register(context, data) {
         .then(response => {
             switch (response.status) {
                 case 200: //OK
-                    context.commit('loadProfile', response.data);
+                    context.commit('setProfile', response.data);
                     break;
                 case 422: //UNAUTHORIZED
+                    context.commit('ERROR_REGISTER', response.data);
+                    break;
+            }
+        })
+}
+
+
+/**
+ * Fonction permettant d'enregister un utilisateur auprès de l'API
+ * @param {*} context - Contexte du store existant
+ * @param {*} data - Données fournies par l'utilisateur
+ */
+ export function newList(context, data) {
+    let token = context.rootGetters["account/getProfile"].token;
+    let url = base+"/todolist?name=" + data.nameList
+    axios.post(url,{headers: {'Authorization': 'Bearer '+token}})
+        .then(response => {
+            console.log("REPONSE DATA :" + response.data);
+            switch (response.status) {
+                case 200: //OK
+                    //context.commit('loadProfile', response.data);
+                    console.log("c'est bon !");
+                    break;
+                case 422: //UNAUTHORIZED
+                    console.log("c'est pas bon !");
                     context.commit('ERROR_REGISTER', response.data);
                     break;
             }
