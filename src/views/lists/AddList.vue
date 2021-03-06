@@ -7,7 +7,7 @@
       </div>
       <div class="form-content">
         <input type="text" v-model="nameList" placeholder="Nom de la liste ..."/>
-        <button @click="submit" class="form-submit">Envoyer</button>
+        <button @click="submit" class="form-submit">{{getMessage}}</button>
       </div>
     </div>
   </div>
@@ -19,17 +19,29 @@ export default {
   data(){
     return{
       nameList: null,
+      message: "Envoyer",
+      sended: false,
     }
   },
-   methods: {
-    submit(){
-      console.log("alo");
-      let data = {
-        nameList: this.nameList,
+  methods: {
+    async submit(){
+      if(this.sended){
+        this.$router.push("/home");
+      }else{
+        let data = {
+          nameList: this.nameList,
+        }
+        this.message = "Veuillez patienter ...";
+        let result = await this.$store.dispatch('todolist/newList', data);
+        if(result){ this.message = "Liste créée ! Cliquez pour revenir à l'accueil"; this.sended = true } else { this.message = "Erreur, veuillez réessayer..."}
       }
-      this.$store.dispatch('todolist/newList', data);
     }
   },
+  computed: {
+    getMessage(){
+      return this.message;
+    }
+  }
 }
 </script>
 
@@ -74,6 +86,13 @@ export default {
     height: 100px;
     padding: 20px;
     border-radius: 100px;
+    transition: 0.2s ease-in-out;
+  }
+
+  .header-icon:hover{
+    background-color: rgb(241, 205, 42);
+    color: #333;
+    transition: 0.2s ease-in-out;
   }
 
   .form-content input{
@@ -107,6 +126,7 @@ export default {
 
   .form-content button:hover{
     padding: 23px;
+    cursor: pointer;
     background-color: #17a2ff;
     color: white;
     transition: 0.2s ease-in-out;

@@ -70,6 +70,8 @@ export default {
     flex-basis: 90%;
     width: 100%;
     margin: 20px;
+    max-height: 80vh;
+    overflow-y: auto;
   }
   .sidebar .title{
     margin-left: 1vw;

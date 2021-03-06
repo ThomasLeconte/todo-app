@@ -53,25 +53,22 @@ export async function loadTasksOfList(context, id){
  * @param {*} context - Contexte du store existant
  * @param {*} data - Données fournies par l'utilisateur
  */
- export function newList(context, data) {
+ export async function newList(context, data) {
     let token = context.rootGetters["account/getProfile"].token;
     let url = base+"/todolist?name=" + data.nameList
     console.log(url);
-    axios.post(url, {name : data.nameList},{
+    return axios.post(url, {name : data.nameList},{
         headers: {
             'Authorization': 'Bearer '+token
         }})
         .then(response => {
-            console.log("REPONSE DATA :" + response.data);
+            console.log(response.data);
             switch (response.status) {
                 case 200: //OK
-                    //context.commit('loadProfile', response.data);
-                    console.log("c'est bon !");
-                    break;
+                    this.commit("todolist/addList", response.data);
+                    return true;
                 case 422: //UNAUTHORIZED
-                    console.log("c'est pas bon !");
-                    context.commit('ERROR_REGISTER', response.data);
-                    break;
+                    return false;
             }
         })
         .catch(function (error)

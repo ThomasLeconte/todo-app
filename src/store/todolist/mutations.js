@@ -8,3 +8,8 @@ export function setLists(state, data) {
     state.lists = data;
     localStorage.setItem("lists", JSON.stringify(state.lists));
 }
+
+export function addList(state, data) {
+    state.lists.push(data);
+    localStorage.setItem("lists", JSON.stringify(state.lists));
+}
