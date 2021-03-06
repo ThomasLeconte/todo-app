@@ -13,10 +13,31 @@
 export default {
   mounted(){
     if("token" in localStorage){
-      this.$store.commit("account/load");
+        this.$store.commit("account/load");
     }
-    if("lists" in localStorage){
-      this.$store.commit("todolist/load");
+    if(!("sync" in sessionStorage)){
+      sessionStorage.setItem("sync", "false");
+    }
+
+    if(sessionStorage.getItem("sync") == "false"){
+      console.log("Synchronisation du cache en cours ...");
+      if("token" in localStorage){
+        if("lists" in localStorage){
+          console.log("Récupération des listes de tâches ...");
+          this.$store.commit("todolist/load");
+        }
+      }else{
+        console.log("Aucun compte connecté ...");
+      }
+      console.log("Synchronisation temrinée !");
+      sessionStorage.setItem("sync", "true");
+    }else{
+      if("token" in localStorage){
+        this.$store.commit("account/load");
+      }
+      if("lists" in localStorage){
+        this.$store.commit("todolist/load");
+      }
     }
     
     /*if("token" in localStorage){

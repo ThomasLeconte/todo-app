@@ -11,14 +11,7 @@ export function load(context){
         headers: {'Authorization': 'Bearer '+token}
     }).then(response => {
         if(response.status == 200){
-            console.log(response.data);
-            //Si les listes sont déjà enregistré dans le cache
-            if("lists" in localStorage){
-                context.commit("load");
-            }else{
-                context.commit("setLists", response.data);
-            }
-            
+            context.commit("setLists", response.data);
         }
     })
     .catch(err => {

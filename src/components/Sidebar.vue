@@ -19,8 +19,11 @@
           <h2 class="title">Listes disponibles : {{ getLists.length }}</h2>
           <button class="button" style="width:auto" @click="addList"><i class="far fa-plus-square"></i> Ajouter</button>
         </div>
-        <div class="sidebar-list">
+        <div class="sidebar-list" v-if="getSyncState">
           <SidebarItem v-for="item in getLists" :key="item.id" :name="item.name" :id="item.id" />
+        </div>
+        <div class="sidebar-list" v-else>
+          <p class="warning-text">Veuillez patienter pendant la synchronisation de l'application ...</p>
         </div>
       </div>
   </div>
@@ -41,7 +44,14 @@ export default {
       }
     },
     computed: {
-        ...mapGetters("todolist", ["getLists"])
+      ...mapGetters("todolist", ["getLists"]),
+      getSyncState(){
+        if(sessionStorage.getItem("sync") == "false"){
+          return false;
+        }else{
+          return true;
+        }  
+      }
     }
 }
 </script>
@@ -102,7 +112,7 @@ export default {
     flex-basis: 70%;
   }
   .button{
-    background-color: #ecf0f1;
+    background-color: #dadcdd;
     border: none;
     border-radius: 10px;
     padding: 10px;
@@ -110,7 +120,6 @@ export default {
     margin-bottom: 10px;
     width: 80%;
     transition: 0.2s ease-in-out;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
   }
   .button:hover{
     background-color: #17a2ff;
@@ -123,5 +132,8 @@ export default {
     justify-content: space-between;
     align-items: center;
     width: 92%;
+  }
+  .warning-text{
+    padding: 20px;
   }
 </style>
