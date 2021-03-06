@@ -27,7 +27,7 @@ export default {
       let data = {
         nameList: this.nameList,
       }
-      this.$store.dispatch('account/newList', data);
+      this.$store.dispatch('todolist/newList', data);
     }
   },
 }
