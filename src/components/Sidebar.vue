@@ -20,7 +20,7 @@
           <button class="button" style="width:auto" @click="addList"><i class="far fa-plus-square"></i> Ajouter</button>
         </div>
         <div class="sidebar-list" v-if="getSyncState">
-          <SidebarItem v-for="item in getLists" :key="item.id" :name="item.name" :id="item.id" />
+          <SidebarItem @eventEdit="selectSideBar" v-for="item in getLists" :key="item.id" :name="item.name" :id="item.id" />
         </div>
         <div class="sidebar-list" v-else>
           <p class="warning-text">Veuillez patienter pendant la synchronisation de l'application ...</p>
@@ -46,6 +46,9 @@ export default {
         this.$store.commit("todolist/logout");
         this.$store.commit("account/logout");
         this.$router.push("/login");
+      },
+      selectSideBar(payload){
+        this.$emit('selectTodo', { id: payload.id, name : payload.name })
       }
     },
     computed: {

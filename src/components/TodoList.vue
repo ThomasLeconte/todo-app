@@ -1,67 +1,44 @@
 <template>
   <div class = "all">
-    <div clas="boutons">
+    <div class="boutons">
         <input v-on:click="filterAll" type="button" value="All">
         <input v-on:click="filterCheck" type="button" value="Check">
         <input v-on:click="filterUncheck" type="button" value="UnCheck">
         <input v-on:click="ajout" type="button" value="Ajout">
     </div>
     <div class="todolist">
-        <ul>
-            <li v-for="todo in filterList" :key="todo.name">
-                <input type="checkbox" id="test" v-bind:value="todo.id" v-bind:name="todo.name" @update:modelValue="updateCompleted(todo)" v-model ="todo.completed">
-                <label for="checkbox">{{todo.name}}</label>
-                <input v-on:click="suppr(todo)" class="favorite styled" type="button" value="Suppression">
-            </li>
-        </ul>
+      <div class="todolist-item">
+        <TodoListItem v-for="item in todos" :key="item.id" :name="item.name" :id="item.id" :checked="item.checked" />
+      </div>
     </div>
   </div>
 </template>
 
 
 <script>
+import TodoListItem from '@/components/TodoListItem.vue'
 import { defineComponent } from 'vue';
+import { mapGetters } from "vuex";
 
 export default defineComponent({
-  name: 'App',
+  name: 'TodoList',
   components: {
-    
+      TodoListItem
   },
-  props: {
-    
+  props:{
+    id: {type: Number},
   },
   data(){
     return {
-      todos: [
-        {
-          id : 1,
-          name : 'tache 1',
-          completed : false
-        },
-        {
-          id : 2,
-          name : 'tache 2',
-          completed : true
-        }
-      ]
-      ,
-      newTodo: '',
       filter: 'all',
+      todos: [],
     }
   },
   methods: {
-    updateCompleted(todo){
-        todo.completed = !todo.completed
-        console.log(todo);
-    },
-    ajout(){
-        var longueur = this.todos.length+1;
-        var newTask = {id : longueur, name : "tache " + longueur,completed : false};
-        this.todos.push(newTask)
-        
-    },
-    suppr(todo){
-        this.todos.splice(this.todos.indexOf(todo), 1);
+    async ajout(){
+      var newTask = {todolist_id : this.id, name : "tache 1",completed : false};
+      this.todos.push(newTask);
+      await this.$store.dispatch('todolist/newTodoList', newTask);              
     },
     filterAll(){
         this.filter = 'all';
@@ -75,6 +52,7 @@ export default defineComponent({
   },
   
   computed:{
+    ...mapGetters("todolist", ["getTodo"]),
     filterList(){
       const listFiltre = [];
       if(this.filter =='all'){
@@ -99,7 +77,8 @@ export default defineComponent({
     }
   },
   beforeMount(){
-    
+    this.todos = this.getTodo(this.id);
+    console.log(this.id);
   }
 });
 </script>

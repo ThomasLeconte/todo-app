@@ -1,10 +1,13 @@
 <template>
   <div class="home" v-if="getToken != null">
     <div class="first-column">
-      <Sidebar />
+      <Sidebar @selectTodo="test"/>
     </div>
-    <div class="second-column">
-      <TodoList />
+    <div class="todo" v-if="listSelected">
+      <TodoList :key="idList" :id="idList" />
+    </div>
+    <div class="todo" v-else>
+      <p class="warning-text">Veuillez selectionner une liste de TO-DO...</p>
     </div>
   </div>
   <div class="home-notConnected" v-else>
@@ -23,16 +26,29 @@ export default {
     Sidebar,
     TodoList
   },
+   data(){
+    return {
+      listSelected : false,
+      idList : null,
+      nameList : null,
+    }
+  },
   mounted() {
     if(this.getLists.length == 0 && this.getToken != null){
       this.$store.dispatch("todolist/load");
     }
   },
   methods: {
+    test(payload){
+      this.idList = payload.id;
+      this.nameList = payload.name;
+      this.listSelected = true;
+    },
     //async getTodos(){ let test = await this.$store.dispatch("todolist/loadTasksOfList", 30); }
   },
   computed: {
     ...mapGetters("account", ["getToken"]),
+    ...mapGetters("todolist", ["getSyncState"]),
     ...mapGetters("todolist", ["getLists"])
   },
 }

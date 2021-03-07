@@ -1,8 +1,9 @@
 <template>
-  <div class="sidebar-item" v-on:click="selectTodo()">
+  <div class="sidebar-item">
       <p>{{ name }}</p>
       <div class="actions">
-          <span class="action"><i class="far fa-edit"></i></span>
+          <input type="checkbox" @update:modelValue="updateCompleted()" checked:this.checked>
+          <span class="action" v-on:click="edit()"><i class="far fa-edit"></i></span>
           <span class="action" v-on:click="suppr()"><i class="far fa-trash-alt"></i></span>
       </div>
   </div>
@@ -10,23 +11,20 @@
 
 <script>
 export default {
-    name: 'SidebarItem',
+    name: 'TodoListItem',
     props:{
         id: {type: Number},
-        name: {type: String, default: "Liste"}
+        name: {type: String, default: "Liste"},
+        checked: {type: Boolean, default: false},
     },
     methods:{
-        async suppr(){
-            console.log("alo");
-            let data = {
-                nameList: this.name,
-            }
-            await this.$store.dispatch('todolist/delList', data);
-            console.log("done");
+        updateCompleted(todo){
+        todo.completed = !todo.completed
+        console.log(todo);
         },
-        selectTodo() {
-            this.$emit('eventEdit', {id: this.id, name : this.name })
-        }
+        supprimer(todo){
+        this.todos.splice(this.todos.indexOf(todo), 1);
+        },
     }
 }
 </script>

@@ -103,3 +103,35 @@ export async function loadTasksOfList(context, id){
 }
 
 
+/**
+ * Fonction permettant d'enregister une nouvelle liste auprès de l'API
+ * @param {*} context - Contexte du store existant
+ * @param {*} data - Données fournies par l'utilisateur
+ */
+ export async function newTodoList(context, data) {
+    let token = context.rootGetters["account/getToken"];
+    let test = 1;
+    if(data.completed){
+        test = 0;
+    }
+    let url = base+"/todo?name=" + data.name + "&completed=" + test + "&todolist_id=" + data.todolist_id;
+    return axios.post(url, {name : data.nameList},{
+        headers: {
+            'Authorization': 'Bearer '+token
+        }})
+        .then(response => {
+            switch (response.status) {
+                case 200: //OK
+                    this.commit("todolist/addList", response.data);
+                    return true;
+                case 422: //UNAUTHORIZED
+                    return false;
+            }
+        })
+        .catch(function (error)
+        {
+            console.log("The error is : " + error.response);
+        });
+}
+
+
