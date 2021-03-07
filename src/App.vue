@@ -23,16 +23,20 @@ export default {
     if(sessionStorage.getItem("sync") == "false"){
       console.log("Synchronisation du cache en cours ...");
       if("token" in localStorage){
-        if("lists" in localStorage){
-          localStorage.removeItem("lists");
-          console.log("Récupération des listes de tâches ...");
-          this.$store.commit("todolist/load");
-        }
+
+        localStorage.removeItem("profile");
+        console.log("Récupération du profil utilisateur ...");
+        this.$store.dispatch("account/getUser");
+
+        localStorage.removeItem("lists");
+        console.log("Récupération des listes de tâches ...");
+        this.$store.commit("todolist/load");
+
+        console.log("Synchronisation temrinée !");
+        sessionStorage.setItem("sync", "true");
       }else{
         console.log("Aucun compte connecté ...");
       }
-      console.log("Synchronisation temrinée !");
-      sessionStorage.setItem("sync", "true");
     }else{
       if("token" in localStorage){
         this.$store.commit("account/load");

@@ -6,7 +6,7 @@ const base = "http://138.68.74.39/api";
  * @param {*} context - Contexte actuel de l'utilisateur
  */
 export async function load(context){
-    let token = context.rootGetters["account/getProfile"].token;
+    let token = context.rootGetters["account/getToken"];
     axios.get(base+"/todolists",{
         headers: {'Authorization': 'Bearer '+token}
     }).then(response => {
@@ -27,7 +27,7 @@ export async function load(context){
  */
 export async function loadTasksOfList(context, id){
 
-    let token = context.rootGetters["account/getProfile"].token;
+    let token = context.rootGetters["account/getToken"];
     return axios.get(base+"/todos/"+id,{
         headers: {'Authorization': 'Bearer '+token}
     }).then(response => {
@@ -48,7 +48,7 @@ export async function loadTasksOfList(context, id){
  * @param {*} data - Données fournies par l'utilisateur
  */
  export async function newList(context, data) {
-    let token = context.rootGetters["account/getProfile"].token;
+    let token = context.rootGetters["account/getToken"];
     let url = base+"/todolist?name=" + data.nameList
     console.log(url);
     return axios.post(url, {name : data.nameList},{

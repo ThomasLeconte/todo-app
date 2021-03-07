@@ -7,9 +7,9 @@
               <i class="fas fa-user"></i>
             </div>
             <div class="second-column">
-              <span class="name">Thomas.L</span>
-              thomasleconte05@gmail.com
-              <button class="button"><i class="fas fa-sign-out-alt"></i> Déconnexion</button>
+              Nom : <span class="name">{{getProfile.name}}</span><br>
+              Email : {{getProfile.email}}
+              <button class="button" @click="logout"><i class="fas fa-sign-out-alt"></i> Déconnexion</button>
             </div>
           </div>
         </div>
@@ -41,11 +41,17 @@ export default {
     methods:{
       addList(){
         this.$router.push("/lists/add");
+      },
+      logout(){
+        this.$store.commit("todolist/logout");
+        this.$store.commit("account/logout");
+        this.$router.push("/login");
       }
     },
     computed: {
       ...mapGetters("todolist", ["getLists"]),
-      ...mapGetters("todolist", ["getSyncState"])
+      ...mapGetters("todolist", ["getSyncState"]),
+      ...mapGetters("account", ["getProfile"]),
     }
 }
 </script>
@@ -94,6 +100,7 @@ export default {
   }
   .user-profile .name{
     font-weight: bold;
+    text-transform: uppercase;
   }
   .user-profile .first-column{
     flex-basis: 30%;

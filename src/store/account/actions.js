@@ -12,9 +12,10 @@ export async function login(context, data) {
     let url = base+"/login?email=" + data.email + "&password=" + data.password
     return axios.post(url)
         .then(response => {
+            console.log(response);
             switch (response.status) {
                 case 200: //OK
-                    context.commit('setProfile', response.data);
+                    context.commit('setToken', response.data.token);
                     return true;
                 case 401: //UNAUTHORIZED
                     context.commit('ERROR_AUTHENTICATED', response.data);
@@ -37,11 +38,27 @@ export function register(context, data) {
         .then(response => {
             switch (response.status) {
                 case 200: //OK
-                    context.commit('setProfile', response.data);
+                    context.commit('setToken', response.data.token);
                     break;
                 case 422: //UNAUTHORIZED
                     context.commit('ERROR_REGISTER', response.data);
                     break;
             }
         })
+}
+
+export function getUser(context){
+    console.log(localStorage)
+    let token = context.rootGetters["account/getToken"];
+    axios.get(base+"/user",{
+        headers: {'Authorization': 'Bearer '+token}
+    }).then(response => {
+        if(response.status == 200){
+            console.log(response.data)
+            context.commit('setProfile', response.data);
+        }
+    })
+    .catch(err => {
+        console.log(err);
+    })
 }

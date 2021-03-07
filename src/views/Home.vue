@@ -1,5 +1,5 @@
 <template>
-  <div class="home" v-if="getProfile != null">
+  <div class="home" v-if="getToken != null">
     <div class="first-column">
       <Sidebar />
     </div>
@@ -24,7 +24,7 @@ export default {
     TodoList
   },
   mounted() {
-    if(this.getLists.length == 0 && this.getProfile != null){
+    if(this.getLists.length == 0 && this.getToken != null){
       this.$store.dispatch("todolist/load");
     }
   },
@@ -32,7 +32,7 @@ export default {
     //async getTodos(){ let test = await this.$store.dispatch("todolist/loadTasksOfList", 30); }
   },
   computed: {
-    ...mapGetters("account", ["getProfile"]),
+    ...mapGetters("account", ["getToken"]),
     ...mapGetters("todolist", ["getLists"])
   },
 }

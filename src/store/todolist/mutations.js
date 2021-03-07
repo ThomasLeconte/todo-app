@@ -17,3 +17,9 @@ export function addList(state, data) {
     state.lists.push(data);
     localStorage.setItem("lists", JSON.stringify(state.lists));
 }
+
+export function logout(state){
+    state.sync = false;
+    state.lists = [];
+    localStorage.removeItem("lists");
+}
