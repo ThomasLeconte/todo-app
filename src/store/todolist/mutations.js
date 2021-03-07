@@ -23,3 +23,8 @@ export function logout(state){
     state.lists = [];
     localStorage.removeItem("lists");
 }
+
+export function delList(state, data) {
+    state.lists.delete(data);
+    localStorage.removeItem("lists", JSON.stringify(state.lists));
+}
