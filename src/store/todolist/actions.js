@@ -43,7 +43,7 @@ export async function loadTasksOfList(context, id){
 }
 
 /**
- * Fonction permettant d'enregister un utilisateur auprès de l'API
+ * Fonction permettant d'enregister une nouvelle liste auprès de l'API
  * @param {*} context - Contexte du store existant
  * @param {*} data - Données fournies par l'utilisateur
  */
@@ -70,3 +70,36 @@ export async function loadTasksOfList(context, id){
             console.log("The error is : " + error.response);
         });
 }
+
+
+/**
+ * Fonction permettant d'enregister un utilisateur auprès de l'API
+ * @param {*} context - Contexte du store existant
+ * @param {*} data - Données fournies par l'utilisateur
+ */
+ export async function delList(context, data) {
+    let token = context.rootGetters["account/getProfile"].token;
+    let url = base;
+    console.log(url);
+    return axios.post(url,{_method : 'delete'},{params: {name : data.nameList}},{
+        headers: {
+            'Authorization': 'Bearer '+token
+        }})
+        .then(response => {
+            console.log(response.data);
+            switch (response.status) {
+                case 200: //OK
+                    console.log("alo");
+                    this.commit("todolist/delList", response.data);
+                    return true;
+                case 422: //UNAUTHORIZED
+                    return false;
+            }
+        })
+        .catch(function (error)
+        {
+            console.log("The error is : " + error.response);
+        });
+}
+
+

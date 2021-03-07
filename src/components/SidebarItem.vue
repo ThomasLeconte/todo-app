@@ -3,7 +3,7 @@
       <p>{{ name }}</p>
       <div class="actions">
           <span class="action"><i class="far fa-edit"></i></span>
-          <span class="action"><i class="far fa-trash-alt"></i></span>
+          <span class="action" v-on:click="suppr()"><i class="far fa-trash-alt"></i></span>
       </div>
   </div>
 </template>
@@ -14,6 +14,16 @@ export default {
     props:{
         id: {type: Number},
         name: {type: String, default: "Liste"}
+    },
+    methods:{
+      async suppr(){
+        console.log("alo");
+        let data = {
+          nameList: this.name,
+        }
+        await this.$store.dispatch('todolist/delList', data);
+        console.log("done");
+      }
     }
 }
 </script>
