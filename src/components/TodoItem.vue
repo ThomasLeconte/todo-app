@@ -1,8 +1,10 @@
 <template>
-  <div class="sidebar-item">
-      <p>{{ name }}</p>
+  <div class="todo-item" @click="updateCheck">
+      <div class='todo-name'>
+        <input type="checkbox" class="checkbox" @update:modelValue="check" v-model="check"/>
+        <p>{{ name }}</p>
+      </div>
       <div class="actions">
-          <input type="checkbox" @update:modelValue="updateCompleted()" checked:this.checked>
           <span class="action" v-on:click="edit()"><i class="far fa-edit"></i></span>
           <span class="action" v-on:click="suppr()"><i class="far fa-trash-alt"></i></span>
       </div>
@@ -11,38 +13,43 @@
 
 <script>
 export default {
-    name: 'TodoListItem',
+    name: 'TodoItem',
     props:{
         id: {type: Number},
         name: {type: String, default: "Liste"},
         checked: {type: Boolean, default: false},
     },
+    data(){
+        return{
+            check: this.checked
+        }
+    },
     methods:{
-        updateCompleted(todo){
-        todo.completed = !todo.completed
-        console.log(todo);
-        },
         supprimer(todo){
         this.todos.splice(this.todos.indexOf(todo), 1);
         },
-    }
+        updateCheck(){
+            this.check = !this.check;
+        }
+    },
 }
 </script>
 
 <style scoped>
-    .sidebar-item{
+    .todo-item{
         background-color: #ecf0f1;
         border-radius: 10px;
-        width: 90%;
-        height: 50px;
+        height: 10vh;
         display: flex;
         justify-content: left;
+        margin: 0 2vw 2vh 2vw;
         margin-left: 5%;
         margin-right: 10%;
-        padding-left: 10px;
+        padding-left: 20px;
         align-items: center;
         display: flex;
         justify-content: space-between;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
     }
     .actions{
         display: none;
@@ -54,17 +61,21 @@ export default {
     .action:hover{
         color: rgb(241, 205, 42);
     }
-    .sidebar-item:hover{
+    .todo-item:hover{
         background-color: #f7f7f7;
         transition: 0.2s ease-in-out;
         cursor: pointer;
     }
-    .sidebar-item:hover > .actions{
+    .todo-item:hover > .actions{
         display: block;
     }
 
-    .sidebar-item:active{
+    .todo-item:active{
         background-color: #17a2ff;
         color: white;
+    }
+
+    .todo-name{
+        display: flex;
     }
 </style>

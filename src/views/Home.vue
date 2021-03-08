@@ -3,8 +3,8 @@
     <div class="first-column">
       <Sidebar @selectTodo="test"/>
     </div>
-    <div class="todo" v-if="listSelected">
-      <TodoList :key="idList" :id="idList" />
+    <div class="second-column" v-if="listSelected">
+      <TodoList :key="idList" :id="idList" :name="nameList"/>
     </div>
     <div class="todo" v-else>
       <p class="warning-text">Veuillez selectionner une liste de TO-DO...</p>

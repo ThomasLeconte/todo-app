@@ -5,19 +5,20 @@ const base = "http://138.68.74.39/api";
  * Méthode permettant de récupérer les listes de l'utilisateur grâce à un appel API
  * @param {*} context - Contexte actuel de l'utilisateur
  */
-export async function load(context){
+export async function load(context) {
     let token = context.rootGetters["account/getToken"];
-    axios.get(base+"/todolists",{
-        headers: {'Authorization': 'Bearer '+token}
+    axios.get(base + "/todolists", {
+        headers: { 'Authorization': 'Bearer ' + token }
     }).then(response => {
-        if(response.status == 200){
+        if (response.status == 200) {
+            console.log(response.data);
             context.commit("setLists", response.data);
             context.commit("setSyncState");
         }
     })
-    .catch(err => {
-        console.log(err);
-    })
+        .catch(err => {
+            console.log(err);
+        })
 }
 
 /**
@@ -25,21 +26,21 @@ export async function load(context){
  * @param {*} context - Contexte actuel de l'utilisateur
  * @param {*} id - ID de la liste concernée
  */
-export async function loadTasksOfList(context, id){
+export async function loadTasksOfList(context, id) {
 
     let token = context.rootGetters["account/getToken"];
-    return axios.get(base+"/todos/"+id,{
-        headers: {'Authorization': 'Bearer '+token}
+    return axios.get(base + "/todos/" + id, {
+        headers: { 'Authorization': 'Bearer ' + token }
     }).then(response => {
-        if(response.status === 200){
+        if (response.status === 200) {
             return response.data;
-        }else{
+        } else {
             return null;
         }
     })
-    .catch(err => {
-        console.log(err);
-    })
+        .catch(err => {
+            console.log(err);
+        })
 }
 
 /**
@@ -47,14 +48,15 @@ export async function loadTasksOfList(context, id){
  * @param {*} context - Contexte du store existant
  * @param {*} data - Données fournies par l'utilisateur
  */
- export async function newList(context, data) {
+export async function newList(context, data) {
     let token = context.rootGetters["account/getToken"];
-    let url = base+"/todolist?name=" + data.nameList
+    let url = base + "/todolist?name=" + data.nameList
     console.log(url);
-    return axios.post(url, {name : data.nameList},{
+    return axios.post(url, { name: data.nameList }, {
         headers: {
-            'Authorization': 'Bearer '+token
-        }})
+            'Authorization': 'Bearer ' + token
+        }
+    })
         .then(response => {
             console.log(response.data);
             switch (response.status) {
@@ -65,26 +67,26 @@ export async function loadTasksOfList(context, id){
                     return false;
             }
         })
-        .catch(function (error)
-        {
+        .catch(function (error) {
             console.log("The error is : " + error.response);
         });
 }
 
 
 /**
- * Fonction permettant d'enregister un utilisateur auprès de l'API
+ * Fonction permettant de supprimer une liste auprès de l'API
  * @param {*} context - Contexte du store existant
  * @param {*} data - Données fournies par l'utilisateur
  */
- export async function delList(context, data) {
+export async function delList(context, data) {
     let token = context.rootGetters["account/getProfile"];
     let url = base;
     console.log(url);
-    return axios.post(url,{_method : 'delete'},{params: {name : data.nameList}},{
+    return axios.post(url, { _method: 'delete' }, { params: { name: data.nameList } }, {
         headers: {
-            'Authorization': 'Bearer '+token
-        }})
+            'Authorization': 'Bearer ' + token
+        }
+    })
         .then(response => {
             console.log(response.data);
             switch (response.status) {
@@ -96,40 +98,38 @@ export async function loadTasksOfList(context, id){
                     return false;
             }
         })
-        .catch(function (error)
-        {
+        .catch(function (error) {
             console.log("The error is : " + error.response);
         });
 }
 
 
 /**
- * Fonction permettant d'enregister une nouvelle liste auprès de l'API
+ * Fonction permettant d'enregister une nouvelle tâche auprès de l'API
  * @param {*} context - Contexte du store existant
  * @param {*} data - Données fournies par l'utilisateur
  */
- export async function newTodoList(context, data) {
+export async function newTodoTask(context, data) {
     let token = context.rootGetters["account/getToken"];
     let test = 1;
-    if(data.completed){
+    if (data.completed) {
         test = 0;
     }
-    let url = base+"/todo?name=" + data.name + "&completed=" + test + "&todolist_id=" + data.todolist_id;
-    return axios.post(url, {name : data.nameList},{
+    let url = base + "/todo?name=" + data.name + "&completed=" + test + "&todolist_id=" + data.todolist_id;
+    return axios.post(url, { name: data.nameList }, {
         headers: {
-            'Authorization': 'Bearer '+token
-        }})
+            'Authorization': 'Bearer ' + token
+        }
+    })
         .then(response => {
             switch (response.status) {
                 case 200: //OK
-                    this.commit("todolist/addList", response.data);
                     return true;
                 case 422: //UNAUTHORIZED
                     return false;
             }
         })
-        .catch(function (error)
-        {
+        .catch(function (error) {
             console.log("The error is : " + error.response);
         });
 }

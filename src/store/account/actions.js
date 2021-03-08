@@ -12,7 +12,6 @@ export async function login(context, data) {
     let url = base+"/login?email=" + data.email + "&password=" + data.password
     return axios.post(url)
         .then(response => {
-            console.log(response);
             switch (response.status) {
                 case 200: //OK
                     context.commit('setToken', response.data.token);
@@ -48,13 +47,11 @@ export function register(context, data) {
 }
 
 export function getUser(context){
-    console.log(localStorage)
     let token = context.rootGetters["account/getToken"];
     axios.get(base+"/user",{
         headers: {'Authorization': 'Bearer '+token}
     }).then(response => {
         if(response.status == 200){
-            console.log(response.data)
             context.commit('setProfile', response.data);
         }
     })
