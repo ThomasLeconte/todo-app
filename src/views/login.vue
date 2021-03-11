@@ -21,6 +21,7 @@
         class="form-input"
       />
       <button @click="submit" class="form-submit">Se connecter</button>
+      <router-link to="/register">Pas de compte ? Inscrivez vous ici !</router-link>
     </div>
   </div>
 </template>

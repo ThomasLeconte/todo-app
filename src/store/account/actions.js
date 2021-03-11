@@ -35,14 +35,11 @@ export function register(context, data) {
     let url = base+"/register?name=" + data.name + "&email=" + data.email + "&password=" + data.password
     axios.post(url)
         .then(response => {
-            switch (response.status) {
-                case 200: //OK
-                    context.commit('setToken', response.data.token);
-                    break;
-                case 422: //UNAUTHORIZED
-                    context.commit('ERROR_REGISTER', response.data);
-                    break;
+            if(response.status == 200){
+                context.commit('setToken', response.data.token);
             }
+        }).catch(err =>{
+            context.commit('setErrors', err.response.data.errors);
         })
 }
 

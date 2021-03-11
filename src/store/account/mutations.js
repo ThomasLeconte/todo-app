@@ -18,6 +18,23 @@ export function setProfile(state, data){
     localStorage.setItem("profile", JSON.stringify(state.infos));
 }
 
+export function setErrors(state, data){
+    if(data.email != undefined){
+        state.errors.push(data.email[0]);
+    }
+    if(data.password != undefined){
+        state.errors.push(data.password[0]);
+    }
+    if(data.name != undefined){
+        state.errors.push(data.name[0]);
+    }
+    console.log(state.errors);
+}
+
+export function resetErrors(state){
+    state.errors = [];
+}
+
 export function logout(state){
     state.token = null;
     state.infos = [];

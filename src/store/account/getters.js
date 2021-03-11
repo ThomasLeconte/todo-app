@@ -5,3 +5,7 @@ export function getToken(state){
 export function getProfile(state){
     return state.infos;
 }
+
+export function getErrors(state){
+    return state.errors;
+}
