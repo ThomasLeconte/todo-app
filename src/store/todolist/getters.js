@@ -18,3 +18,7 @@ export function getTodosByListId(state){
         return null;
     }   
 }
+
+export function getErrors(state){
+    return state.errors;
+}

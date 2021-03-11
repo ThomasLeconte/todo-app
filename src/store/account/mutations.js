@@ -19,7 +19,6 @@ export function setProfile(state, data){
 }
 
 export function setErrors(state, data){
-    console.log(data);
     if(data.email != undefined){
         state.errors.push(data.email[0]);
     }
@@ -32,7 +31,6 @@ export function setErrors(state, data){
     if(data.login != undefined){
         state.errors.push(data.login);
     }
-    console.log(state.errors);
 }
 
 export function resetErrors(state){

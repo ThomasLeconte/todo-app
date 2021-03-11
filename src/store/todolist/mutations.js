@@ -28,3 +28,13 @@ export function delList(state, data) {
     state.lists.delete(data);
     localStorage.removeItem("lists", JSON.stringify(state.lists));
 }
+
+export function setErrors(state, data){
+    if(data.unknown != undefined){
+        state.errors.push(data.unknown);
+    }
+}
+
+export function resetErrors(state){
+    state.errors = [];
+}

@@ -56,53 +56,18 @@ export async function newList(context, data) {
         headers: {
             'Authorization': 'Bearer ' + token
         }
-    })
-        .then(response => {
-            console.log(response.data);
-            switch (response.status) {
-                case 200: //OK
-                    this.commit("todolist/addList", response.data);
-                    return true;
-                case 422: //UNAUTHORIZED
-                    return false;
-            }
-        })
-        .catch(function (error) {
-            console.log("The error is : " + error.response);
-        });
-}
-
-
-/**
- * Fonction permettant de supprimer une liste auprès de l'API
- * @param {*} context - Contexte du store existant
- * @param {*} data - Données fournies par l'utilisateur
- */
-export async function delList(context, data) {
-    let token = context.rootGetters["account/getProfile"];
-    let url = base;
-    console.log(url);
-    return axios.post(url, { _method: 'delete' }, { params: { name: data.nameList } }, {
-        headers: {
-            'Authorization': 'Bearer ' + token
+    }).then(response => {
+        console.log(response.data);
+        if (response.status == 200) {
+            this.commit("todolist/addList", response.data);
+            return true;
         }
-    })
-        .then(response => {
-            console.log(response.data);
-            switch (response.status) {
-                case 200: //OK
-                    console.log("alo");
-                    this.commit("todolist/delList", response.data);
-                    return true;
-                case 422: //UNAUTHORIZED
-                    return false;
-            }
-        })
-        .catch(function (error) {
-            console.log("The error is : " + error.response);
-        });
+    }).catch(function (error) {
+        console.log(error);
+        context.commit("setErrors", { unknown: "An error has been encountered, please try again later." })
+        return false;
+    });
 }
-
 
 /**
  * Fonction permettant d'enregister une nouvelle tâche auprès de l'API
@@ -120,18 +85,15 @@ export async function newTodoTask(context, data) {
         headers: {
             'Authorization': 'Bearer ' + token
         }
-    })
-        .then(response => {
-            switch (response.status) {
-                case 200: //OK
-                    return true;
-                case 422: //UNAUTHORIZED
-                    return false;
-            }
-        })
-        .catch(function (error) {
-            console.log("The error is : " + error.response);
-        });
+    }).then(response => {
+        if (response.status == 200) {
+            return true;
+        }
+    }).catch(function (error) {
+        console.log(error);
+        context.commit("setErrors", { unknown: "An error has been encountered, please try again later." })
+        return false;
+    });
 }
 
 
