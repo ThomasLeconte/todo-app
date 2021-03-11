@@ -11,7 +11,8 @@
       <input type="text" v-model="name" placeholder="Votre nom" class="form-input"/>
       <input type="email" v-model="email" placeholder="Email" class="form-input"/>
       <input type="password" v-model="password" placeholder="Mot de passe" class="form-input"/>
-      <button @click="submit" class="form-submit">Se connecter</button>
+      <button @click="submit" class="form-submit">Valider</button>
+      <router-link to="/login">Déjà enregistré(e) ? connectez vous ici !</router-link>
     </div>
   </div>
 </template>

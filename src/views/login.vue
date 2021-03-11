@@ -4,8 +4,8 @@
     <div class="success-alert" v-show="getToken != null">
       Vous êtes déjà connecté !
     </div>
-    <div class="warning-alert" v-show="error">
-      Veuillez vérifier vos identifiants et réessayez...
+    <div class="warning-alert" v-show="getErrors.length > 0">
+      <p v-for="(error, index) in getErrors" :key="index">{{error}}</p>
     </div>
     <div class="login-form">
       <input
@@ -34,8 +34,10 @@ export default {
     return {
       email: null,
       password: null,
-      error: false,
     };
+  },
+  mounted(){
+    this.$store.commit("account/resetErrors");
   },
   methods: {
     async submit() {
@@ -43,18 +45,18 @@ export default {
         email: this.email,
         password: this.password,
       };
+      this.$store.commit("account/resetErrors");
       let response = await this.$store.dispatch("account/login", data);
       if (response) {
         sessionStorage.setItem("sync", "true");
         this.$store.dispatch("account/getUser");
         this.$router.push("Home");
-      } else {
-        this.error = true;
       }
     },
   },
   computed: {
     ...mapGetters("account", ["getToken"]),
+    ...mapGetters("account", ["getErrors"]),
   },
 };
 </script>
