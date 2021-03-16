@@ -4,7 +4,7 @@
       <Sidebar @selectTodo="test"/>
     </div>
     <div class="second-column" v-if="listSelected">
-      <TodoList :key="idList" :id="idList" :name="nameList"/>
+      <TodoList @deleteTodo="del" :key="idList" :id="idList" :name="nameList"/>
     </div>
     <div class="todo" v-else>
       <p class="warning-text">Veuillez selectionner une liste de TO-DO...</p>
@@ -44,6 +44,9 @@ export default {
       this.nameList = payload.name;
       this.listSelected = true;
     },
+    del(payload){
+      this.todos.splice(this.todos.indexOf(payload.todo), 1);
+    }
     //async getTodos(){ let test = await this.$store.dispatch("todolist/loadTasksOfList", 30); }
   },
   computed: {

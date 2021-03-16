@@ -6,7 +6,7 @@
       </div>
       <div class="actions">
           <span class="action" v-on:click="edit()"><i class="far fa-edit"></i></span>
-          <span class="action" v-on:click="suppr()"><i class="far fa-trash-alt"></i></span>
+          <span class="action" v-on:click="delTodo(todo)"><i class="far fa-trash-alt"></i></span>
       </div>
   </div>
 </template>
@@ -25,8 +25,9 @@ export default {
         }
     },
     methods:{
-        supprimer(todo){
-        this.todos.splice(this.todos.indexOf(todo), 1);
+        delTodo(todo){
+            this.$emit('eventDel', {id: this.id, name : this.name });
+            this.todos.splice(this.todos.indexOf(todo), 1);
         },
         updateCheck(){
             this.check = !this.check;

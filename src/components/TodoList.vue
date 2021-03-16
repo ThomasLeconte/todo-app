@@ -9,6 +9,7 @@
     </div>
     <div class="todos-list">
       <TodoItem
+        @eventDel="delTodoToDel"
         v-for="item in todos"
         :key="item.id"
         :name="item.name"
@@ -61,6 +62,9 @@ export default defineComponent({
     filterUncheck() {
       this.filter = "uncheck";
     },
+    delTodoToDel(payload) {
+        this.$emit('deleteTodo', { id: payload.id, name : payload.name })
+    }
   },
 
   computed: {
