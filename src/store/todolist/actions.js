@@ -1,5 +1,6 @@
 import axios from 'axios';
 const base = "http://138.68.74.39/api";
+const supp = 'http://138.68.74.39/api/todo/1'
 
 /**
  * Méthode permettant de récupérer les listes de l'utilisateur grâce à un appel API
@@ -94,6 +95,32 @@ export async function newTodoTask(context, data) {
         context.commit("setErrors", { unknown: "An error has been encountered, please try again later." })
         return false;
     });
+}
+
+
+/**
+ * Fonction permettant de supprimer une tâche auprès de l'API
+ * @param {*} context - Contexte du store existant
+ * @param {*} data - Données fournies par l'utilisateur
+ */
+ export async function delOneTodo(context, data) {
+    let token = context.rootGetters["account/getToken"];
+
+    
+    axios.get(supp, {
+        headers: { 'Authorization': 'Bearer ' + token }
+    }).then(response => {
+        if (response.status == 200) {
+            for (var i = 0; i < this.todos.length; i++) {
+                if (this.todos.loadTasksOfList() == true) {
+                    this.todos.splice(this.finished[j], 1)      
+                }
+            }
+        }
+    })
+        .catch(err => {
+            console.log(err);
+        })
 }
 
 
