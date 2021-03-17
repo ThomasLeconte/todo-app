@@ -52,3 +52,12 @@ export function setErrors(state, data){
 export function resetErrors(state){
     state.errors = [];
 }
+
+export function delTask(state, data){
+    for(var i = 0; i<state.tasks.length; i++){
+        if(state.tasks[i].id === data.id){
+            state.tasks.splice(i, 1);
+            localStorage.setItem("tasks", JSON.stringify(state.tasks));
+        }
+    }
+}

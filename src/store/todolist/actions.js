@@ -120,3 +120,29 @@ export async function newTodoTask(context, data) {
     });
 }
 
+
+/**
+ * Fonction permettant de supprimer une tâche auprès de l'API
+ * @param {*} context - Contexte du store existant
+ * @param {*} data - Données fournies par l'utilisateur
+ */
+ export async function delTodoTask(context, data) {
+    let token = context.rootGetters["account/getToken"];
+    let url = base + "/todo/" + data.id;
+    return axios.delete(url, {
+        headers: {
+            'Authorization': 'Bearer ' + token
+        }
+    }).then(response => {
+        console.log(response);
+        if (response.status == 200) {
+            context.commit("delTask", data);
+            return true;
+        }
+    }).catch(function (error) {
+        console.log(error);
+        context.commit("setErrors", { unknown: "An error has been encountered, please try again later." })
+        return false;
+    });
+}
+

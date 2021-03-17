@@ -6,7 +6,7 @@
       </div>
       <div class="actions">
           <span class="action" v-on:click="edit()"><i class="far fa-edit"></i></span>
-          <span class="action" v-on:click="suppr()"><i class="far fa-trash-alt"></i></span>
+          <span class="action" v-on:click="supprimer()"><i class="far fa-trash-alt"></i></span>
       </div>
   </div>
 </template>
@@ -25,8 +25,14 @@ export default {
         }
     },
     methods:{
-        supprimer(todo){
-        this.todos.splice(this.todos.indexOf(todo), 1);
+        async supprimer(){
+            console.log("Suppresion??");
+            let data = {
+                id : this.id,
+            }
+            console.log(this.id);
+            await this.$store.dispatch('todolist/delTodoTask', data);
+            console.log("Suppresion");
         },
         updateCheck(){
             this.check = !this.check;
