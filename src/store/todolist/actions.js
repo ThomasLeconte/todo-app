@@ -11,7 +11,6 @@ export async function load(context) {
         headers: { 'Authorization': 'Bearer ' + token }
     }).then(response => {
         if (response.status == 200) {
-            console.log(response.data);
             context.commit("setLists", response.data);
             context.commit("setSyncState");
         }
@@ -57,7 +56,7 @@ export async function newList(context, data) {
         }
     }).then(response => {
         if (response.status == 200) {
-            this.commit("todolist/addList", response.data);
+            context.commit("addList", response.data);
             return true;
         }
     }).catch(function (error) {
@@ -85,7 +84,7 @@ export async function newTodoTask(context, data) {
         }
     }).then(response => {
         if (response.status == 200) {
-            this.commit("todolist/addTodo", response.data);
+            context.commit("addTodo", response.data);
             return true;
         }
     }).catch(function (error) {
@@ -109,8 +108,9 @@ export async function newTodoTask(context, data) {
             'Authorization': 'Bearer ' + token
         }
     }).then(response => {
+        console.log(response);
         if (response.status == 200) {
-            this.commit("todolist/delList", data);
+            context.commit("delList", data);
             return true;
         }
     }).catch(function (error) {

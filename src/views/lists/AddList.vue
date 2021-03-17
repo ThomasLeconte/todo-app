@@ -3,13 +3,13 @@
     <div class="form">
       <div class="form-header">
         <span class="header-icon"><i class="fas fa-clipboard-list"></i></span>
-        <h2>Ajouter une liste de tâche ...</h2>
+        <h2>Add todo list ...</h2>
       </div>
       <div class="form-content">
         <input
           type="text"
           v-model="nameList"
-          placeholder="Nom de la liste ..."
+          placeholder="List name ..."
         />
         <button @click="submit" class="form-submit">{{ getMessage }}</button>
       </div>
@@ -24,7 +24,7 @@ export default {
   data() {
     return {
       nameList: null,
-      message: "Envoyer",
+      message: "Validate",
       sended: false,
     };
   },
@@ -40,10 +40,10 @@ export default {
           nameList: this.nameList,
         };
         this.$store.commit("todolist/resetErrors");
-        this.message = "Veuillez patienter ...";
+        this.message = "Please wait ...";
         let result = await this.$store.dispatch("todolist/newList", data);
         if (result) {
-          this.message = "Liste créée ! Cliquez pour revenir à l'accueil";
+          this.message = "List created ! Go back by clicking here.";
           this.sended = true;
         } else {
           this.message = this.getErrors[0];

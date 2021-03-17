@@ -1,11 +1,11 @@
 <template>
   <div class="todolist-view">
-    <div class="header"><i class="fas fa-home"></i> {{ name }} - Tâches</div>
+    <div class="header"><i class="fas fa-home"></i> {{ name }} - Tasks</div>
     <div class="main-buttons">
       <input v-on:click="filterAll" type="button" value="All" />
       <input v-on:click="filterCheck" type="button" value="Check" />
       <input v-on:click="filterUncheck" type="button" value="UnCheck" />
-      <input v-on:click="ajout" type="button" value="Ajout" />
+      <input v-on:click="ajout" type="button" value="Add task" />
     </div>
     <div class="todos-list">
       <TodoItem
@@ -42,15 +42,15 @@ export default defineComponent({
   },
   methods: {
     async ajout() {
-      var newTask = { todolist_id: this.id, name: "tache 1", completed: false };
+      var newTask = { todolist_id: this.id, name: "Task 1", completed: false };
       this.todos.push(newTask);
       let response = await this.$store.dispatch(
         "todolist/newTodoTask",
         newTask
       );
       response
-        ? console.log("Tâche ajoutée !")
-        : console.log("Erreur lors de l'ajout de la tâche...");
+        ? console.log("Task added !")
+        : console.log("Error during task creation");
     },
     filterAll() {
       this.filter = "all";

@@ -7,11 +7,11 @@
       <TodoList :key="idList" :id="idList" :name="nameList"/>
     </div>
     <div class="todo" v-else>
-      <p class="warning-text">Veuillez selectionner une liste de TO-DO...</p>
+      <p class="warning-text">Please select a TO-DO list on your left ...</p>
     </div>
   </div>
   <div class="home-notConnected" v-else>
-    Vous n'êtes pas connecté... <router-link to="/login">Connectez vous ici !</router-link>
+    You're not logged in. <router-link to="/login">Click here for log in yourself</router-link>
   </div>
 </template>
 

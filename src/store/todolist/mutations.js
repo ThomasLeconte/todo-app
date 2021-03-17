@@ -37,7 +37,7 @@ export function delList(state, data) {
         if(state.lists[i].id === data.id){
             console.log(state.lists);
             state.lists.splice(i, 1);
-            localStorage.removeItem("lists", JSON.stringify(state.lists));
+            localStorage.setItem("lists", JSON.stringify(state.lists));
             console.log(state.lists);
         }
     }

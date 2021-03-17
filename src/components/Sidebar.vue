@@ -7,23 +7,23 @@
               <i class="fas fa-user"></i>
             </div>
             <div class="second-column">
-              Nom : <span class="name">{{getProfile.name}}</span><br>
+              Name : <span class="name">{{getProfile.name}}</span><br>
               Email : {{getProfile.email}}
-              <button class="button" @click="logout"><i class="fas fa-sign-out-alt"></i> Déconnexion</button>
+              <button class="button" @click="logout"><i class="fas fa-sign-out-alt"></i> Disconnect</button>
             </div>
           </div>
         </div>
       </div>
       <div class="content">
         <div class="content-header">
-          <h2 class="title">Listes disponibles : {{ getLists.length }}</h2>
-          <button class="button" style="width:auto" @click="addList"><i class="far fa-plus-square"></i> Ajouter</button>
+          <h2 class="title">Available lists : {{ getLists.length }}</h2>
+          <button class="button" style="width:auto" @click="addList"><i class="far fa-plus-square"></i> Add list</button>
         </div>
         <div class="sidebar-list" v-if="getSyncState">
           <SidebarItem @eventEdit="selectSideBar" v-for="item in getLists" :key="item.id" :name="item.name" :id="item.id" />
         </div>
         <div class="sidebar-list" v-else>
-          <p class="warning-text">Veuillez patienter pendant la synchronisation de l'application ...</p>
+          <p class="warning-text">Please wait during application initialization...</p>
         </div>
       </div>
   </div>

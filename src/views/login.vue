@@ -1,8 +1,8 @@
 <template>
   <div class="login">
-    <h1>Se connecter</h1>
+    <h1>Log in yourself !</h1>
     <div class="success-alert" v-show="getToken != null">
-      Vous êtes déjà connecté !
+      You're already logged in !
     </div>
     <div class="warning-alert" v-show="getErrors.length > 0">
       <p v-for="(error, index) in getErrors" :key="index">{{error}}</p>
@@ -20,8 +20,8 @@
         placeholder="Mot de passe"
         class="form-input"
       />
-      <button @click="submit" class="form-submit">Se connecter</button>
-      <router-link to="/register">Pas de compte ? Inscrivez vous ici !</router-link>
+      <button @click="submit" class="form-submit">{{ message }}</button>
+      <router-link to="/register">Don't have an account ? Register here !</router-link>
     </div>
   </div>
 </template>
@@ -34,6 +34,7 @@ export default {
     return {
       email: null,
       password: null,
+      message: "Log in"
     };
   },
   mounted(){
@@ -41,6 +42,7 @@ export default {
   },
   methods: {
     async submit() {
+      this.message = "Please wait ...";
       let data = {
         email: this.email,
         password: this.password,
@@ -51,6 +53,8 @@ export default {
         sessionStorage.setItem("sync", "true");
         this.$store.dispatch("account/getUser");
         this.$router.push("Home");
+      }else{
+        this.message = "Log in";
       }
     },
   },
