@@ -18,6 +18,14 @@ export function addList(state, data) {
     localStorage.setItem("lists", JSON.stringify(state.lists));
 }
 
+export function addTodo(state, data) {
+    for(var i = 0; i<state.lists.length; i++){
+        if(state.lists[i].id === data.todolist_id){
+            localStorage.setItem("lists", JSON.stringify(state.lists));
+        }
+    }
+}
+
 export function logout(state){
     state.sync = false;
     state.lists = [];
@@ -25,8 +33,14 @@ export function logout(state){
 }
 
 export function delList(state, data) {
-    state.lists.delete(data);
-    localStorage.removeItem("lists", JSON.stringify(state.lists));
+    for(var i = 0; i<state.lists.length; i++){
+        if(state.lists[i].id === data.id){
+            console.log(state.lists);
+            state.lists.splice(i, 1);
+            localStorage.removeItem("lists", JSON.stringify(state.lists));
+            console.log(state.lists);
+        }
+    }
 }
 
 export function setErrors(state, data){

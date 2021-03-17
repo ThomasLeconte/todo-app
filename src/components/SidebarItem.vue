@@ -17,11 +17,10 @@ export default {
     },
     methods:{
         async suppr(){
-            console.log("alo");
             let data = {
-                nameList: this.name,
+                id: this.id,
             }
-            await this.$store.dispatch('todolist/delList', data);
+            await this.$store.dispatch('todolist/delTodoList', data);
             console.log("done");
         },
         selectTodo() {

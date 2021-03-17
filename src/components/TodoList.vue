@@ -89,8 +89,9 @@ export default defineComponent({
     },
   },
   beforeMount() {
-    this.todos = this.getTodosByListId(this.id);
-    console.log(this.id);
+    if(this.getTodosByListId(this.id) !== undefined){
+      this.todos = this.getTodosByListId(this.id);
+    }
   },
 });
 </script>

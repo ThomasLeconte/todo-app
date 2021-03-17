@@ -51,13 +51,11 @@ export async function loadTasksOfList(context, id) {
 export async function newList(context, data) {
     let token = context.rootGetters["account/getToken"];
     let url = base + "/todolist?name=" + data.nameList
-    console.log(url);
     return axios.post(url, { name: data.nameList }, {
         headers: {
             'Authorization': 'Bearer ' + token
         }
     }).then(response => {
-        console.log(response.data);
         if (response.status == 200) {
             this.commit("todolist/addList", response.data);
             return true;
@@ -87,6 +85,7 @@ export async function newTodoTask(context, data) {
         }
     }).then(response => {
         if (response.status == 200) {
+            this.commit("todolist/addTodo", response.data);
             return true;
         }
     }).catch(function (error) {
@@ -96,4 +95,28 @@ export async function newTodoTask(context, data) {
     });
 }
 
+
+/**
+ * Fonction permettant de supprimer une liste auprès de l'API
+ * @param {*} context - Contexte du store existant
+ * @param {*} data - Données fournies par l'utilisateur
+ */
+ export async function delTodoList(context, data) {
+    let token = context.rootGetters["account/getToken"];
+    let url = base + "/todolist/" + data.id;
+    return axios.delete(url, {
+        headers: {
+            'Authorization': 'Bearer ' + token
+        }
+    }).then(response => {
+        if (response.status == 200) {
+            this.commit("todolist/delList", data);
+            return true;
+        }
+    }).catch(function (error) {
+        console.log(error);
+        context.commit("setErrors", { unknown: "An error has been encountered, please try again later." })
+        return false;
+    });
+}
 
