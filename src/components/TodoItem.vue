@@ -26,13 +26,11 @@ export default {
     },
     methods:{
         async supprimer(){
-            console.log("Suppresion??");
             let data = {
-                id : this.id,
+                id : this.$props.id,
             }
-            console.log(this.id);
+            console.log(this.$props.id);
             await this.$store.dispatch('todolist/delTodoTask', data);
-            console.log("Suppresion");
         },
         updateCheck(){
             this.check = !this.check;
