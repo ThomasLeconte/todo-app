@@ -28,10 +28,12 @@ export default {
     methods:{
         async supprimer(){
             let data = {
-                id : this.$props.id,
+                id : this.id,
             }
-            console.log(this.$props.id);
+            console.log(this.id);
             await this.$store.dispatch('todolist/delTodoTask', data);
+            console.log("Task number : " + this.id + " is deleted." );
+            this.$parent.refreshList();
         },
         async updateCheck(){
             let complete = 1;
