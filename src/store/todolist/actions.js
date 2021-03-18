@@ -146,3 +146,26 @@ export async function newTodoTask(context, data) {
     });
 }
 
+/**
+ * Fonction permettant de mettre à jour le status d'une tâche auprès de l'API
+ * @param {*} context - Contexte du store existant
+ * @param {*} data - Données fournies par l'utilisateur
+ */
+ export async function updateComplete(context, data) {
+    let token = context.rootGetters["account/getToken"];
+    let url = base + "/completeTodo/" + data.id + "?name=" + data.name + "&completed=" + data.completed + "&todolist_id=" + data.todolist_id;
+    return axios.post(url, { name: data.nameList }, {
+        headers: {
+            'Authorization': 'Bearer ' + token
+        }
+    }).then(response => {
+        if (response.status == 200) {
+            console.log('The status of todo "' + data.name + '" has been updated');
+            return true;
+        }
+    }).catch(function (error) {
+        console.log(error);
+        context.commit("setErrors", { unknown: "An error has been encountered, please try again later." })
+        return false;
+    });
+}

@@ -1,7 +1,7 @@
 <template>
-  <div class="todo-item" @click="updateCheck">
+  <div class="todo-item">
       <div class='todo-name'>
-        <input type="checkbox" class="checkbox" @update:modelValue="check" v-model="check"/>
+        <input type="checkbox" class="checkbox" @change="updateCheck" v-model="check"/>
         <p>{{ name }}</p>
       </div>
       <div class="actions">
@@ -16,6 +16,7 @@ export default {
     name: 'TodoItem',
     props:{
         id: {type: Number},
+        todolist_id: {type: Number},
         name: {type: String, default: "Liste"},
         checked: {type: Boolean, default: false},
     },
@@ -32,9 +33,20 @@ export default {
             console.log(this.$props.id);
             await this.$store.dispatch('todolist/delTodoTask', data);
         },
-        updateCheck(){
-            this.check = !this.check;
-        }
+        async updateCheck(){
+            let complete = 1;
+            if(this.checked == true){
+                complete = 0;
+            }
+            let data = {
+                id : this.id,
+                name: this.name,
+                todolist_id : this.todolist_id,
+                completed : complete
+            }
+            await this.$store.dispatch('todolist/updateComplete', data);
+            this.$parent.refreshList();
+        },
     },
 }
 </script>
