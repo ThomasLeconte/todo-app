@@ -2,10 +2,11 @@
   <div class="todo-item">
       <div class='todo-name'>
         <input type="checkbox" class="checkbox" @change="updateCheck" v-model="check"/>
-        <p>{{ name }}</p>
+        <p v-if="!isEditing">{{ name }}</p>
+        <input v-else type="text" v-model="todoName" @keyup.enter="isEditing=false;editTodo()" @blur="isEditing=false;editTodo()" ref="todoInput">
       </div>
       <div class="actions">
-          <span class="action" v-on:click="edit()"><i class="far fa-edit"></i></span>
+          <span class="action" v-on:click="enableEditing"><i class="far fa-edit"></i></span>
           <span class="action" v-on:click="supprimer()"><i class="far fa-trash-alt"></i></span>
       </div>
   </div>
@@ -22,7 +23,9 @@ export default {
     },
     data(){
         return{
-            check: this.checked
+            check: this.checked,
+            todoName: this.name,
+            isEditing: false
         }
     },
     methods:{
@@ -49,6 +52,26 @@ export default {
             await this.$store.dispatch('todolist/updateComplete', data);
             this.$parent.refreshList();
         },
+        async editTodo(){
+            let complete = 1;
+            if(this.checked == true){
+                complete = 0;
+            }
+            let data = {
+                id : this.id,
+                name: this.todoName,
+                todolist_id : this.todolist_id,
+                completed : complete
+            }
+            await this.$store.dispatch('todolist/modifyTodo', data);
+            this.$parent.refreshList();
+        },
+        enableEditing(){
+            this.isEditing=true;
+            this.$nextTick(() => {
+                this.$refs.todoInput.focus();
+            })
+        }
     },
 }
 </script>

@@ -169,3 +169,27 @@ export async function newTodoTask(context, data) {
         return false;
     });
 }
+
+/**
+ * Fonction permettant de modifier d'une tâche (name) auprès de l'API
+ * @param {*} context - Contexte du store existant
+ * @param {*} data - Données fournies par l'utilisateur
+ */
+ export async function modifyTodo(context, data) {
+    let token = context.rootGetters["account/getToken"];
+    let url = base + "/todo/" + data.id + "?name=" + data.name + "&completed=" + data.completed + "&todolist_id=" + data.todolist_id;
+    return axios.patch(url, { name: data.nameList }, {
+        headers: {
+            'Authorization': 'Bearer ' + token
+        }
+    }).then(response => {
+        if (response.status == 200) {
+            console.log('Todo has been updated');
+            return true;
+        }
+    }).catch(function (error) {
+        console.log(error);
+        context.commit("setErrors", { unknown: "An error has been encountered, please try again later." })
+        return false;
+    });
+}
