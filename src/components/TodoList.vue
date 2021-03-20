@@ -5,7 +5,7 @@
       <input v-on:click="filterAll" type="button" value="All" />
       <input v-on:click="filterCheck" type="button" value="Check" />
       <input v-on:click="filterUncheck" type="button" value="UnCheck" />
-      <input v-model="todoName">
+      <input v-model="newTodoName">
       <input v-on:click="ajout" type="button" value="Add task" />
     </div>
     <div class="todos-list">
@@ -40,12 +40,13 @@ export default defineComponent({
     return {
       filter: "all",
       todos: [],
-      todosFiltered: []
+      todosFiltered: [],
+      newTodoName: ""
     };
   },
   methods: {
     async ajout() {
-      var newTask = { todolist_id: this.id, name: this.todoName, completed: false };
+      var newTask = { todolist_id: this.id, name: this.newTodoName, completed: false };
       this.todos.push(newTask);
       let response = await this.$store.dispatch(
         "todolist/newTodoTask",
@@ -54,6 +55,7 @@ export default defineComponent({
       response
         ? console.log("Task added !")
         : console.log("Error during task creation");
+      this.refreshList();
     },
     filterAll() {
       this.filter = "all";
@@ -68,7 +70,6 @@ export default defineComponent({
       this.applyFilter();
     },
     applyFilter(){
-      console.log(this.todos);
       let result = [];
       if (this.filter == 'check'){
         this.todos.forEach(todo => {

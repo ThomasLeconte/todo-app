@@ -73,9 +73,9 @@ export async function newList(context, data) {
  */
 export async function newTodoTask(context, data) {
     let token = context.rootGetters["account/getToken"];
-    let test = 1;
+    let test = 0;
     if (data.completed) {
-        test = 0;
+        test = 1;
     }
     let url = base + "/todo?name=" + data.name + "&completed=" + test + "&todolist_id=" + data.todolist_id;
     return axios.post(url, { name: data.nameList }, {
@@ -171,7 +171,7 @@ export async function newTodoTask(context, data) {
 }
 
 /**
- * Fonction permettant de modifier d'une tâche (name) auprès de l'API
+ * Fonction permettant de modifier une tâche (name) auprès de l'API
  * @param {*} context - Contexte du store existant
  * @param {*} data - Données fournies par l'utilisateur
  */
