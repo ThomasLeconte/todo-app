@@ -44,9 +44,6 @@ export default {
         display: flex;
         font-weight: bold;
         justify-content: space-between;
-        background: linear-gradient(to right, #4d0026 0%, #f05fa7 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
     }
     .actions{
         display: none;
@@ -59,17 +56,18 @@ export default {
         color: rgb(241, 205, 42);
     }
     .sidebar-item:hover{
+        background-color: #f7f7f7;
         transition: 0.2s ease-in-out;
         cursor: pointer;
-        background-image: linear-gradient(-45deg, #af2269, #e98ebb, #af2269);
-        color: #f5eeee;
     }
     .sidebar-item:hover > .actions{
         display: block;
     }
 
     .sidebar-item:active{
-        background-color: #17a2ff;
+        background-image: linear-gradient(-45deg, #690537, #f05fa7, #690537);
+        background-size: 300% 300%;
+        background-position: 0 0;
         color: white;
     }
 </style>

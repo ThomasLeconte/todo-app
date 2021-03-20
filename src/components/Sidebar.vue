@@ -77,7 +77,6 @@ export default {
     background-color: #f7f7f7;
     width: 85%;
     font-weight: bold;
-    color: #4d0026;
     border-radius: 10px;
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
   }
@@ -93,6 +92,7 @@ export default {
     letter-spacing: 1px;
     text-transform: uppercase;
     font-size: 1em;
+    color: black; 
   }
   .sidebar-list{
     display: flex;
@@ -118,23 +118,21 @@ export default {
     flex-basis: 70%;
   }
   .button{
-    background-image: linear-gradient(-45deg, #690537, #f05fa7, #690537);
+    background-color: #dadcdd;
     border: none;
     border-radius: 10px;
-    color: #4d0026;
     padding: 10px;
     margin-top: 10px;
     margin-bottom: 10px;
     width: 80%;
-    font-weight: bold;
     transition: all ease 1s;
-    background-size: 300% 300%;
-    background-position: 0 0;
   }
   .button:hover{
-    background-color: #17a2ff;
+    background-image: linear-gradient(-45deg, #690537, #f05fa7, #690537);
     color: white;
     cursor: pointer;
+    background-size: 300% 300%;
+    background-position: 0 0;
     transition: 0.2s ease-in-out;
   }
   .content-header{
@@ -145,9 +143,5 @@ export default {
   }
   .warning-text{
     padding: 20px;
-  }
-
-  h2{
-    color: #690537;
   }
 </style>

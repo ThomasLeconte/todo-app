@@ -142,8 +142,8 @@ export default defineComponent({
   }
 
   .main-buttons input{
-    margin-left:10%;
-    border-radius: 1em;
+    margin: 0 10px 0 10px;
+    border-radius: 5px;
     border: 2px solid #690537;
     cursor: pointer;
     padding: 7% 15%;
@@ -152,9 +152,9 @@ export default defineComponent({
     background-image: linear-gradient(-45deg, #690537, #f05fa7, #690537);
     color: #f5eeee;
     font-weight: bold;
-    transition: all ease 1s;
     background-size: 300% 300%;
     background-position: 0 0;
+    transition: 0.2s ease-in-out;
   }
 
   .main-buttons input:hover{
@@ -179,8 +179,8 @@ export default defineComponent({
 
   .todos-add input{
     width: 80%;
-    border-image-source: linear-gradient(45deg, #690537, #f05fa7);
-    border-image-slice: 1;
+    border: 1px solid #333;
+    border-radius: 5px;
     padding: 2vh 2vw;
     margin-right: 10px;
   }
@@ -193,7 +193,7 @@ export default defineComponent({
   }
 
   .button{
-    border-radius: 1em;
+    border-radius: 5px;
     border: 2px solid #690537;
     cursor: pointer;
     padding: 7% 15%;

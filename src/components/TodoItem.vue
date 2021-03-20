@@ -79,12 +79,10 @@ export default {
 <style scoped>
     .todo-item{
         border: 0.15em solid transparent;
-        background-image: linear-gradient(-45deg, #af2269, #e98ebb, #af2269);
-        color: #f5eeee;
+        color: #333;
+        background-color: #ecf0f1;
         font-weight: bold;
-        transition: all ease 1s;
-        background-size: 200% 300%;
-        background-position: 0 0;
+        transition: 0.2s ease-in-out;
         border-radius: 10px;
         height: 10vh;
         display: flex;
@@ -111,10 +109,8 @@ export default {
         color: rgb(241, 205, 42);
     }
     .todo-item:hover{
-        background-color: #ff6699;
+        border: 1px solid #af2269;
         cursor: pointer;
-        background-position: 20% 20%;
-        box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 8px 15px rgba(0,0,0,0.23);
     }
     .todo-item:hover > .actions{
         display: block;
