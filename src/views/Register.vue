@@ -43,7 +43,6 @@ export default {
         email: this.email,
         password: this.password
       }
-      console.log(data);
       this.$store.commit("account/resetErrors");
       this.$store.dispatch('account/register', data);
     }
@@ -71,8 +70,8 @@ export default {
     border-radius: 1.5em;
     justify-content: center;
     align-items: center;
-    padding: 5%;
-    box-shadow: 10px 10px 5px rgb(97, 94, 94);
+    padding: 2%;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
     width: 60vw;
   }
 

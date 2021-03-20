@@ -19,18 +19,7 @@ export function setProfile(state, data){
 }
 
 export function setErrors(state, data){
-    if(data.email != undefined){
-        state.errors.push(data.email[0]);
-    }
-    if(data.password != undefined){
-        state.errors.push(data.password[0]);
-    }
-    if(data.name != undefined){
-        state.errors.push(data.name[0]);
-    }
-    if(data.login != undefined){
-        state.errors.push(data.login);
-    }
+    state.errors = data;
 }
 
 export function resetErrors(state){

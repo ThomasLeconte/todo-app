@@ -14,7 +14,11 @@ const base = "http://138.68.74.39/api";
                 context.commit('setToken', response.data.token);
             }
         }).catch(err =>{
-            context.commit('setErrors', err.response.data.errors);
+            if(err.response.data.errors != undefined){
+                context.commit('setErrors', err.response.data.errors);
+            }else{
+                context.commit('setErrors', ['An error has occurred, please try again later.']);
+            }
         })
 }
 
@@ -34,8 +38,9 @@ export async function login(context, data) {
                 return true;
             }
         }).catch(function (err) {
-            console.log(err.response.data)
-            context.commit("setErrors", {login: "Wrong credentials, please try again..."})
+            if(err.response.data != undefined){
+                context.commit("setErrors", ["Wrong credentials, please try again..."]);
+            }
             return false;
         })
 }

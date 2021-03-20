@@ -73,4 +73,8 @@ export default {
 
     height: 100vh;
   }
+
+  .warning-text{
+    padding: 20px;
+  }
 </style>
