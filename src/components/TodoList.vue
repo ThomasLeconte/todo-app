@@ -1,6 +1,6 @@
 <template>
   <div class="todolist-view">
-    <div class="header"><i class="fas fa-home"></i> {{ name }} - Tasks</div>
+    <div class="header"><i class="fas fa-tasks"></i> {{ name }} - Tasks</div>
     <div class="main-buttons">
       <input v-on:click="filterAll" type="button" value="All" />
       <input v-on:click="filterCheck" type="button" value="Check" />
@@ -126,14 +126,41 @@ export default defineComponent({
   }
 
   .header{
-    font-size: 1.5em;
+    font-size: 2.5em;
     font-weight: bold;
     margin-bottom: 5vh;
     text-align: left;
+    background: linear-gradient(to right, #4d0026 0%, #f05fa7 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 
   .main-buttons{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
     margin-bottom: 2vh;
+  }
+
+  .main-buttons input{
+    margin-left:10%;
+    border-radius: 1em;
+    border: 2px solid #690537;
+    cursor: pointer;
+    padding: 7% 15%;
+    text-align: center;
+    border: 0.15em solid transparent;
+    background-image: linear-gradient(-45deg, #690537, #f05fa7, #690537);
+    color: #f5eeee;
+    font-weight: bold;
+    transition: all ease 1s;
+    background-size: 300% 300%;
+    background-position: 0 0;
+  }
+
+  .main-buttons input:hover{
+    cursor: pointer;
+    color: #ebdfdf;
+    background-position: 100% 50%;
   }
 
   .todos-list{
@@ -152,32 +179,36 @@ export default defineComponent({
 
   .todos-add input{
     width: 80%;
-    border: 1px solid rgb(143, 143, 143);
+    border-image-source: linear-gradient(45deg, #690537, #f05fa7);
+    border-image-slice: 1;
     padding: 2vh 2vw;
-    border-radius: 5px;
     margin-right: 10px;
   }
 
   .todos-add button{
     width: 10%;
     padding: 1vh 2vw;
+    color: #ebdfdf;
+    font-weight: bold;
   }
 
   .button{
-    background-color: #dadcdd;
-    border: none;
-    border-radius: 5px;
-    padding: 10px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    width: 80%;
-    transition: 0.2s ease-in-out;
+    border-radius: 1em;
+    border: 2px solid #690537;
+    cursor: pointer;
+    padding: 7% 15%;
+    text-align: center;
+    border: 0.15em solid transparent;
+    background-image: linear-gradient(-45deg, #690537, #f05fa7, #690537);
+    color: #a6a6a6;
+    transition: all ease 1s;
+    background-size: 300% 300%;
+    background-position: 0 0;
   }
   .button:hover{
-    background-color: #17a2ff;
-    color: white;
     cursor: pointer;
-    transition: 0.2s ease-in-out;
+    color: #ebdfdf;
+    background-position: 100% 50%;
   }
 </style>
 

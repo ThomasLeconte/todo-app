@@ -32,7 +32,6 @@ export default {
 
 <style scoped>
     .sidebar-item{
-        background-color: #ecf0f1;
         border-radius: 10px;
         width: 90%;
         height: 50px;
@@ -43,7 +42,11 @@ export default {
         padding-left: 10px;
         align-items: center;
         display: flex;
+        font-weight: bold;
         justify-content: space-between;
+        background: linear-gradient(to right, #4d0026 0%, #f05fa7 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
     }
     .actions{
         display: none;
@@ -56,9 +59,10 @@ export default {
         color: rgb(241, 205, 42);
     }
     .sidebar-item:hover{
-        background-color: #f7f7f7;
         transition: 0.2s ease-in-out;
         cursor: pointer;
+        background-image: linear-gradient(-45deg, #af2269, #e98ebb, #af2269);
+        color: #f5eeee;
     }
     .sidebar-item:hover > .actions{
         display: block;
