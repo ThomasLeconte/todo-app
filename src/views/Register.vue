@@ -124,7 +124,6 @@ export default {
     background-size: 300% 300%;
     background-position: 0 0;
     font-weight: bold;
-
   }
 
   .form-submit:hover{
