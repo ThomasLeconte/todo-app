@@ -1,36 +1,97 @@
 <template>
   <div class="register">
-    <div class="taskito"><i class="fas fa-tasks"></i></div>
-    <div class="data">
-        <h1>Register</h1>
-        <div class="success-alert" v-show="getProfile.length > 0">
-          Vous êtes maintenant enregistré(e) !
-        </div>
-        <div class="warning-alert" v-show="getErrors.length > 0">
-            <p v-for="(error, index) in getErrors" :key="index">{{error}}</p>
-        </div>  
-        <div class="login-form">
-            <input type="text" v-model="name" placeholder="Name" class="form-input"/>          
-            <input type="email" v-model="email" placeholder="Email" class="form-input"/>
-            <input type="password" v-model="password" placeholder="Password" class="form-input"/>
-            <button @click="submit" class="form-submit">Submit</button>
-            <h2><router-link to="/login" class="root">Already got a TodoApp account? Sign in</router-link></h2>
-        </div>
+    <div class="card">
+      <div class="task-icon"><i class="fas fa-tasks"></i></div>
+      <div class="data">
+          <h1>Register</h1>
+          <div class="success-alert" v-show="getProfile.length > 0">
+            Vous êtes maintenant enregistré(e) !
+          </div>
+          <div class="warning-alert" v-show="getErrors.length > 0">
+              <p v-for="(error, index) in getErrors" :key="index">{{error}}</p>
+          </div>  
+          <div class="register-form">
+              <input type="text" v-model="name" placeholder="Name" class="form-input"/>          
+              <input type="email" v-model="email" placeholder="Email" class="form-input"/>
+              <input type="password" v-model="password" placeholder="Password" class="form-input"/>
+              <button @click="submit" class="form-submit">Submit</button>
+              <h2 class="login-link"><router-link to="/login" class="root">Already got a TodoApp account ? <br/>Sign in</router-link></h2>
+          </div>
+      </div>
     </div>
   </div>
 </template>
 
+<script>
+import { mapGetters } from "vuex";
+export default {
+  name: 'Register',
+  data(){
+    return{
+      email: null,
+      name: null,
+      password: null,
+    }
+  },
+  mounted(){
+    this.$store.commit("account/resetErrors");
+  },
+  methods: {
+    submit(){
+      let data = {
+        name: this.name,
+        email: this.email,
+        password: this.password
+      }
+      console.log(data);
+      this.$store.commit("account/resetErrors");
+      this.$store.dispatch('account/register', data);
+    }
+  },
+  computed: {
+    ...mapGetters("account", ["getProfile"]),
+    ...mapGetters("account", ["getErrors"])
+  }
+}
+</script>
+
 <style scoped>
 
   .register{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  .register .card{
+    display: flex;
     background: linear-gradient(135deg, #4d0026, #f05fa7);
     background-size: 110% 150%;
     border-radius: 1.5em;
-    margin: 7% 20%;
+    justify-content: center;
+    align-items: center;
     padding: 5%;
     box-shadow: 10px 10px 5px rgb(97, 94, 94);
+    width: 60vw;
+  }
+
+  .card .task-icon{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 10em;
+    flex-basis: 40%;
+  }
+
+  .card .data{
+    flex-basis: 60%;
+  }
+
+  .task-icon i{
+    font-size: 1.2em; 
+    color: #c9c9c9;
   }
 
   h1{
@@ -73,31 +134,19 @@
     background-position: 100% 50%;
   }
 
-  .taskito{
-    text-align: center;
-    padding-top: 20%;
-  }
-
-  .taskito i{
-    animation: fa-spin 20s linear infinite;
-    font-size: 17em; 
-    color: #a6a6a6;
-  }
-
   .root{
-    padding: 10%;
-    color: #a6a6a6;
+    color: white;
+    text-decoration: none;
   }
 
-  h2{
-    font-size: 80%;
+  .login-link{
+    text-transform: uppercase;
+    font-size: 1em;
   }
   
-  .login-form{
+  .register-form{
     margin: 0% 10%;
   }
-
- 
 
   .success-alert{
     background-color: rgba(39, 174, 96,0.4);
@@ -113,36 +162,3 @@
     margin: 20px;
   }
 </style>
-
-<script>
-import { mapGetters } from "vuex";
-export default {
-  name: 'Register',
-  data(){
-    return{
-      email: null,
-      name: null,
-      password: null,
-    }
-  },
-  mounted(){
-    this.$store.commit("account/resetErrors");
-  },
-  methods: {
-    submit(){
-      let data = {
-        name: this.name,
-        email: this.email,
-        password: this.password
-      }
-      this.$store.commit("account/resetErrors");
-      this.$store.dispatch('account/register', data);
-    }
-  },
-  computed: {
-    ...mapGetters("account", ["getProfile"]),
-    ...mapGetters("account", ["getErrors"])
-  }
-}
-</script>
-
