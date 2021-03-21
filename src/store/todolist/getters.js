@@ -1,4 +1,5 @@
 export function getLists(state){
+    console.log(state.lists);
     return state.lists;
 }
 

@@ -110,9 +110,9 @@ export default defineComponent({
   },
   beforeMount() {
     if(this.getTodosByListId(this.id) !== undefined){
-      this.todos = this.getTodosByListId(this.id);
-      this.refreshList();
+      this.todos = this.getTodosByListId(this.id); 
     }
+    this.refreshList();
   },
 });
 </script>

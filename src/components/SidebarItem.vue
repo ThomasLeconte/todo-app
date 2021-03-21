@@ -1,6 +1,9 @@
 <template>
   <div class="sidebar-item" v-on:click="selectTodo()">
-      <p>{{ name }}</p>
+      <p>
+          {{ name }} ({{ compteur }}/{{ nb_todos }})
+      </p>
+      
       <div class="actions">
           <span class="action"><i class="far fa-edit"></i></span>
           <span class="action" v-on:click="suppr()"><i class="far fa-trash-alt"></i></span>
@@ -13,7 +16,14 @@ export default {
     name: 'SidebarItem',
     props:{
         id: {type: Number},
-        name: {type: String, default: "Liste"}
+        name: {type: String, default: "Liste"},
+        nb_todos: {type: Number, default: 0},
+        todos: {type: Array}
+    },
+    data(){
+        return {
+            compteur: 0
+        }
     },
     methods:{
         async suppr(){
@@ -24,8 +34,20 @@ export default {
             console.log("done");
         },
         selectTodo() {
-            this.$emit('eventEdit', {id: this.id, name : this.name })
-        }
+            this.$emit('eventEdit', {id: this.id, name : this.name });
+            this.calculateTodoCompleted();
+        },
+        calculateTodoCompleted(){
+            this.compteur = 0;
+            this.todos.forEach(todo => {
+                if(todo.completed == 1){
+                    this.compteur = this.compteur + 1;
+                }
+            });
+        },
+    },
+    beforeMount() {
+        this.calculateTodoCompleted()
     }
 }
 </script>

@@ -20,7 +20,7 @@
           <button class="button" style="width:auto" @click="addList"><i class="far fa-plus-square"></i> Add list</button>
         </div>
         <div class="sidebar-list" v-if="getSyncState">
-          <SidebarItem @eventEdit="selectSideBar" v-for="item in getLists" :key="item.id" :name="item.name" :id="item.id" />
+          <SidebarItem @eventEdit="selectSideBar" v-for="item in getLists" :key="item.id" :name="item.name" :id="item.id" :nb_todos="item.nb_todos" :todos="item.todos" />
         </div>
         <div class="sidebar-list" v-else>
           <p class="warning-text">Please wait during application initialization...</p>
