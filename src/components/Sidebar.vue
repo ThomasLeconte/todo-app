@@ -20,7 +20,7 @@
           <button class="button" style="width:auto" @click="addList"><i class="far fa-plus-square"></i> Add list</button>
         </div>
         <div class="sidebar-list" v-if="getSyncState">
-          <SidebarItem @eventEdit="selectSideBar" v-for="item in getLists" :key="item.id" :name="item.name" :id="item.id" :nb_todos="item.nb_todos" :todos="item.todos" />
+          <SidebarItem @eventEdit="selectSideBar" v-for="item in listOfTodoList" :key="item.id" :name="item.name" :id="item.id" :nb_todos="item.nb_todos" :todos="item.todos" />
         </div>
         <div class="sidebar-list" v-else>
           <p class="warning-text">Please wait during application initialization...</p>
@@ -38,6 +38,11 @@ export default {
     components: {
       SidebarItem
     },
+    data() {
+      return {
+        listOfTodoList: null
+      }
+    },
     methods:{
       addList(){
         this.$router.push("/lists/add");
@@ -49,7 +54,14 @@ export default {
       },
       selectSideBar(payload){
         this.$emit('selectTodo', { id: payload.id, name : payload.name })
+      },
+      async refresh(){
+        this.listOfTodoList = await this.$store.dispatch("todolist/loadListOfTodoList");
       }
+    },
+    beforeMount(){
+      //this.listOfTodoList = this.getLists;
+      this.refresh();
     },
     computed: {
       ...mapGetters("todolist", ["getLists"]),

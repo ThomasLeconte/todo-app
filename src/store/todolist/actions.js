@@ -193,3 +193,19 @@ export async function newTodoTask(context, data) {
         return false;
     });
 }
+
+export async function loadListOfTodoList(context) {
+    let token = context.rootGetters["account/getToken"];
+    return axios.get(base + "/todolists", {
+        headers: { 'Authorization': 'Bearer ' + token }
+    }).then(response => {
+        if (response.status === 200) {
+            return response.data;
+        } else {
+            return null;
+        }
+    })
+        .catch(err => {
+            console.log(err);
+        })
+}

@@ -1,7 +1,7 @@
 <template>
   <div class="sidebar-item" v-on:click="selectTodo()">
       <p>
-          {{ name }} ({{ compteur }}/{{ nb_todos }})
+          {{ name }} ({{ calculateTodoCompleted() }}/{{ nb_todos }})
       </p>
       
       <div class="actions">
@@ -20,11 +20,6 @@ export default {
         nb_todos: {type: Number, default: 0},
         todos: {type: Array}
     },
-    data(){
-        return {
-            compteur: 0
-        }
-    },
     methods:{
         async suppr(){
             let data = {
@@ -38,12 +33,13 @@ export default {
             this.calculateTodoCompleted();
         },
         calculateTodoCompleted(){
-            this.compteur = 0;
+            let compteur = 0;
             this.todos.forEach(todo => {
                 if(todo.completed == 1){
-                    this.compteur = this.compteur + 1;
+                    compteur = compteur + 1;
                 }
             });
+            return compteur;
         },
     },
     beforeMount() {

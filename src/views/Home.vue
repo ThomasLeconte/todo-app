@@ -1,7 +1,7 @@
 <template>
   <div class="home" v-if="getToken != null">
     <div class="first-column">
-      <Sidebar @selectTodo="test"/>
+      <Sidebar @selectTodo="test" ref="Sidebar"/>
     </div>
     <div class="second-column" v-if="listSelected">
       <TodoList :key="idList" :id="idList" :name="nameList"/>
@@ -45,6 +45,9 @@ export default {
       this.listSelected = true;
     },
     //async getTodos(){ let test = await this.$store.dispatch("todolist/loadTasksOfList", 30); }
+    async refreshSidebar(){
+      this.$refs.Sidebar.refresh();
+    }
   },
   computed: {
     ...mapGetters("account", ["getToken"]),

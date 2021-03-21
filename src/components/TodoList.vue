@@ -102,6 +102,7 @@ export default defineComponent({
       });
       this.todos = listOfTodos;
       this.applyFilter();
+      this.$parent.refreshSidebar();
     }
   },
 
