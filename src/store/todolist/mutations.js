@@ -19,8 +19,10 @@ export function addList(state, data) {
 }
 
 export function addTodo(state, data) {
+    data.completed = parseInt(data.completed);
     for(var i = 0; i<state.lists.length; i++){
         if(state.lists[i].id === data.todolist_id){
+            state.lists[i].todos.push(data);
             localStorage.setItem("lists", JSON.stringify(state.lists));
         }
     }
@@ -54,10 +56,45 @@ export function resetErrors(state){
 }
 
 export function delTask(state, data){
-    for(var i = 0; i<state.tasks.length; i++){
-        if(state.tasks[i].id === data.id){
-            state.tasks.splice(i, 1);
-            localStorage.setItem("tasks", JSON.stringify(state.tasks));
+    //on parcours la liste de listes
+    for(let i = 0; i< state.lists.length; i++){
+        //si l'id de la liste correspond à celui passé dans data
+        if(state.lists[i].id == data.todolist_id){
+            //on parcours toutes les tâches de la liste correspondante
+            for(let j = 0; j < state.lists[i].todos.length; j++){
+                //si l'id de la tâche correspond à celle passée en paramètre
+                if(state.lists[i].todos[j].id == data.id){
+                    console.log("task found");
+                    //on enlève la tâche de la liste
+                    state.lists[i].todos.splice(j, 1);
+                    break;
+                }
+            }
+            break;
         }
     }
+    localStorage.setItem("lists", JSON.stringify(state.lists));
+}
+
+export function updateTaskComplete(state, data){
+    //on parcours la liste de listes
+    for(let i = 0; i< state.lists.length; i++){
+        //si l'id de la liste correspond à celui passé dans data
+        if(state.lists[i].id == data.todolist_id){
+            //on parcours toutes les tâches de la liste correspondante
+            for(let j = 0; j < state.lists[i].todos.length; j++){
+                //si l'id de la tâche correspond à celle passée en paramètre
+                if(state.lists[i].todos[j].id == data.id){
+                    console.log("task found");
+                    //on modifie le completed de la tâche
+                    state.lists[i].todos[j].completed == 0
+                    ? state.lists[i].todos[j].completed = 1
+                    : state.lists[i].todos[j].completed = 0;
+                    break;
+                }
+            }
+            break;
+        }
+    }
+    localStorage.setItem("lists", JSON.stringify(state.lists));
 }

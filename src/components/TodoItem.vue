@@ -1,5 +1,5 @@
 <template>
-  <div class="todo-item">
+  <div class="todo-item" @click="updateCheck">
       <div class='todo-name'>
         <input type="checkbox" class="checkbox" @change="updateCheck" v-model="check"/>
         <p v-if="!isEditing">{{ name }}</p>
@@ -23,33 +23,30 @@ export default {
     },
     data(){
         return{
-            check: this.checked,
-            todoName: this.name,
+            check: this.$props.checked,
+            todoName: this.$props.name,
             isEditing: false
         }
     },
     methods:{
         async supprimer(){
             let data = {
-                id : this.id,
+                id: this.id,
+                todolist_id: this.todolist_id
             }
-            console.log(this.id);
             await this.$store.dispatch('todolist/delTodoTask', data);
-            console.log("Task number : " + this.id + " is deleted." );
+            console.log("Task number : " + this.id + " is deleted.");
             this.$parent.refreshList();
         },
         async updateCheck(){
-            let complete = 1;
-            if(this.checked == true){
-                complete = 0;
-            }
             let data = {
                 id : this.id,
                 name: this.name,
                 todolist_id : this.todolist_id,
-                completed : complete
+                completed : !this.check ? 1 : 0
             }
             await this.$store.dispatch('todolist/updateComplete', data);
+            this.check = !this.check;
             this.$parent.refreshList();
         },
         async editTodo(){
@@ -81,6 +78,7 @@ export default {
         border: 0.15em solid transparent;
         color: #333;
         background-color: #ecf0f1;
+        border: 1px solid #ecf0f1;
         font-weight: bold;
         transition: 0.2s ease-in-out;
         border-radius: 10px;
@@ -95,6 +93,7 @@ export default {
         display: flex;
         justify-content: space-between;
         box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+        transition: 0.2s ease-in-out;
     }
     .actions{
         display: none;
@@ -111,19 +110,20 @@ export default {
     .todo-item:hover{
         border: 1px solid #af2269;
         cursor: pointer;
+        transition: 0.2s ease-in-out;
     }
     .todo-item:hover > .actions{
         display: block;
     }
 
-    .todo-item:active{
-        background-color: #17a2ff;
-        color: white;
-    }
-
     .todo-name{
         display: flex;
         align-items: center;
+    }
+
+    .checkbox{
+        transform: scale(1.4);
+        border-radius: 20px;
     }
 
     p{

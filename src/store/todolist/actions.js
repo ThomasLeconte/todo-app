@@ -36,10 +36,9 @@ export async function loadTasksOfList(context, id) {
         } else {
             return null;
         }
-    })
-        .catch(err => {
-            console.log(err);
-        })
+    }).catch(err => {
+        console.log(err);
+    });
 }
 
 /**
@@ -108,7 +107,6 @@ export async function newTodoTask(context, data) {
             'Authorization': 'Bearer ' + token
         }
     }).then(response => {
-        console.log(response);
         if (response.status == 200) {
             context.commit("delList", data);
             return true;
@@ -134,7 +132,6 @@ export async function newTodoTask(context, data) {
             'Authorization': 'Bearer ' + token
         }
     }).then(response => {
-        console.log(response);
         if (response.status == 200) {
             context.commit("delTask", data);
             return true;
@@ -161,6 +158,7 @@ export async function newTodoTask(context, data) {
     }).then(response => {
         if (response.status == 200) {
             console.log('The status of todo "' + data.name + '" has been updated');
+            context.commit("updateTaskComplete", data);
             return true;
         }
     }).catch(function (error) {

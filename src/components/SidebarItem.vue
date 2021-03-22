@@ -1,11 +1,10 @@
 <template>
   <div class="sidebar-item" v-on:click="selectTodo()">
       <p>
-          {{ name }} ({{ calculateTodoCompleted() }}/{{ nb_todos }})
+          {{ name }} <span class="todos-counter">{{ calculateTodoCompleted() }}</span>
       </p>
       
       <div class="actions">
-          <span class="action"><i class="far fa-edit"></i></span>
           <span class="action" v-on:click="suppr()"><i class="far fa-trash-alt"></i></span>
       </div>
   </div>
@@ -35,7 +34,7 @@ export default {
         calculateTodoCompleted(){
             let compteur = 0;
             this.todos.forEach(todo => {
-                if(todo.completed == 1){
+                if(todo.completed == 0){
                     compteur = compteur + 1;
                 }
             });
@@ -87,5 +86,18 @@ export default {
         background-size: 300% 300%;
         background-position: 0 0;
         color: white;
+    }
+
+    .todos-counter{
+        display: inline-block;
+        background-color: rgba(240, 95, 167, 0.5);
+        padding: 5px;
+        margin-left: 10px;
+        font-size: 1.2em;
+        width: 15px;
+        line-height: 15px;
+        text-align: center;
+        border-radius: 100%;
+        color: #690537;
     }
 </style>

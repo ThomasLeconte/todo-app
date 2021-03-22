@@ -44,7 +44,6 @@ export default {
       this.nameList = payload.name;
       this.listSelected = true;
     },
-    //async getTodos(){ let test = await this.$store.dispatch("todolist/loadTasksOfList", 30); }
     async refreshSidebar(){
       this.$refs.Sidebar.refresh();
     }

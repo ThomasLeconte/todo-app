@@ -49,7 +49,6 @@ export default defineComponent({
   methods: {
     async ajout() {
       var newTask = { todolist_id: this.id, name: this.newTodoName, completed: false };
-      this.todos.push(newTask);
       let response = await this.$store.dispatch(
         "todolist/newTodoTask",
         newTask
@@ -92,7 +91,7 @@ export default defineComponent({
       }
     },
     async refreshList(){
-      let listOfTodos = await this.$store.dispatch("todolist/loadTasksOfList", this.id);
+      let listOfTodos = this.getTodosByListId(this.id);
       listOfTodos.forEach(todo => {
         if(todo.completed == 1){
           todo.checked = true;
