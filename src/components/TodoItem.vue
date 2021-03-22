@@ -35,7 +35,6 @@ export default {
                 todolist_id: this.todolist_id
             }
             await this.$store.dispatch('todolist/delTodoTask', data);
-            console.log("Task number : " + this.id + " is deleted.");
             this.$parent.refreshList();
         },
         async updateCheck(){

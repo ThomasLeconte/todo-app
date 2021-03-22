@@ -1,7 +1,7 @@
 <template>
   <div class="sidebar-item" v-on:click="selectTodo()">
       <p>
-          {{ name }} <span class="todos-counter">{{ calculateTodoCompleted() }}</span>
+          {{ name }} <span class="todos-counter">{{ calculateTodosNotCompleted() }}</span>
       </p>
       
       <div class="actions">
@@ -25,13 +25,12 @@ export default {
                 id: this.id,
             }
             await this.$store.dispatch('todolist/delTodoList', data);
-            console.log("done");
         },
         selectTodo() {
             this.$emit('eventEdit', {id: this.id, name : this.name });
             this.calculateTodoCompleted();
         },
-        calculateTodoCompleted(){
+        calculateTodosNotCompleted(){
             let compteur = 0;
             this.todos.forEach(todo => {
                 if(todo.completed == 0){
@@ -42,7 +41,7 @@ export default {
         },
     },
     beforeMount() {
-        this.calculateTodoCompleted()
+        this.calculateTodosNotCompleted()
     }
 }
 </script>

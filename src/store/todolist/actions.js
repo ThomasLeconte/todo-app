@@ -157,7 +157,6 @@ export async function newTodoTask(context, data) {
         }
     }).then(response => {
         if (response.status == 200) {
-            console.log('The status of todo "' + data.name + '" has been updated');
             context.commit("updateTaskComplete", data);
             return true;
         }
@@ -182,7 +181,7 @@ export async function newTodoTask(context, data) {
         }
     }).then(response => {
         if (response.status == 200) {
-            console.log('Todo has been updated');
+            context.commit("updateTaskName", data);
             return true;
         }
     }).catch(function (error) {

@@ -49,13 +49,10 @@ export default defineComponent({
   methods: {
     async ajout() {
       var newTask = { todolist_id: this.id, name: this.newTodoName, completed: false };
-      let response = await this.$store.dispatch(
+      await this.$store.dispatch(
         "todolist/newTodoTask",
         newTask
       );
-      response
-        ? console.log("Task added !")
-        : console.log("Error during task creation");
       this.refreshList();
     },
     filterAll() {
