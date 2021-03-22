@@ -22,6 +22,9 @@ export function addTodo(state, data) {
     data.completed = parseInt(data.completed);
     for(var i = 0; i<state.lists.length; i++){
         if(state.lists[i].id === data.todolist_id){
+            if(state.lists[i].todos == undefined){
+                state.lists[i].todos = [];
+            }
             state.lists[i].todos.push(data);
             localStorage.setItem("lists", JSON.stringify(state.lists));
         }

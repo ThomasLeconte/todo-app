@@ -28,15 +28,16 @@ export default {
         },
         selectTodo() {
             this.$emit('eventEdit', {id: this.id, name : this.name });
-            this.calculateTodoCompleted();
         },
         calculateTodosNotCompleted(){
             let compteur = 0;
-            this.todos.forEach(todo => {
-                if(todo.completed == 0){
-                    compteur = compteur + 1;
-                }
-            });
+            if(this.todos != undefined){
+                this.todos.forEach(todo => {
+                    if(todo.completed == 0){
+                        compteur = compteur + 1;
+                    }
+                });
+            }
             return compteur;
         },
     },

@@ -13,7 +13,7 @@
         :name="item.name"
         :id="item.id"
         :todolist_id="item.todolist_id"
-        :checked="item.checked"
+        :checked="isItChecked(item.completed)"
       />
     </div>
     <div class="todos-add">
@@ -53,7 +53,6 @@ export default defineComponent({
         "todolist/newTodoTask",
         newTask
       );
-      this.refreshList();
     },
     filterAll() {
       this.filter = "all";
@@ -71,14 +70,14 @@ export default defineComponent({
       let result = [];
       if (this.filter == 'check'){
         this.todos.forEach(todo => {
-          if(todo.checked == true){
+          if(todo.completed == 1){
             result.push(todo);
           }
         });
         this.todosFiltered = result;
       }else if( this.filter == 'uncheck'){
         this.todos.forEach(todo => {
-          if(todo.checked == false){
+          if(todo.completed == 0){
             result.push(todo);
           }
         });
@@ -87,19 +86,13 @@ export default defineComponent({
         this.todosFiltered = this.todos;
       }
     },
-    async refreshList(){
-      let listOfTodos = this.getTodosByListId(this.id);
-      listOfTodos.forEach(todo => {
-        if(todo.completed == 1){
-          todo.checked = true;
-        }else{
-          todo.checked = false;
-        }
-      });
-      this.todos = listOfTodos;
-      this.applyFilter();
-      this.$parent.refreshSidebar();
-    }
+    isItChecked(value){
+      if(value == 1){
+        return true;
+      }else{
+        return false;
+      }
+    },
   },
 
   computed: {
@@ -109,7 +102,7 @@ export default defineComponent({
     if(this.getTodosByListId(this.id) !== undefined){
       this.todos = this.getTodosByListId(this.id); 
     }
-    this.refreshList();
+    this.applyFilter();
   },
 });
 </script>

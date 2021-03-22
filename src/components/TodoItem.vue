@@ -1,5 +1,5 @@
 <template>
-  <div class="todo-item" @click="updateCheck">
+  <div class="todo-item">
       <div class='todo-name'>
         <input type="checkbox" class="checkbox" @change="updateCheck" v-model="check"/>
         <p v-if="!isEditing">{{ name }}</p>
@@ -35,18 +35,15 @@ export default {
                 todolist_id: this.todolist_id
             }
             await this.$store.dispatch('todolist/delTodoTask', data);
-            this.$parent.refreshList();
         },
         async updateCheck(){
             let data = {
                 id : this.id,
                 name: this.name,
                 todolist_id : this.todolist_id,
-                completed : !this.check ? 1 : 0
+                completed : !this.checked ? 1 : 0
             }
             await this.$store.dispatch('todolist/updateComplete', data);
-            this.check = !this.check;
-            this.$parent.refreshList();
         },
         async editTodo(){
             let complete = 1;
@@ -60,7 +57,6 @@ export default {
                 completed : complete
             }
             await this.$store.dispatch('todolist/modifyTodo', data);
-            this.$parent.refreshList();
         },
         enableEditing(){
             this.isEditing=true;

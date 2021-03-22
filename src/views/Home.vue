@@ -43,10 +43,7 @@ export default {
       this.idList = payload.id;
       this.nameList = payload.name;
       this.listSelected = true;
-    },
-    async refreshSidebar(){
-      this.$refs.Sidebar.refresh();
-    }
+    } 
   },
   computed: {
     ...mapGetters("account", ["getToken"]),
