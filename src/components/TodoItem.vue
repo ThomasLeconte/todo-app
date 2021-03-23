@@ -44,6 +44,11 @@ export default {
                 completed : !this.checked ? 1 : 0
             }
             await this.$store.dispatch('todolist/updateComplete', data);
+            if(!this.check){
+                this.check = false;
+            }else{
+                this.check = true;
+            }
         },
         async editTodo(){
             let complete = 1;

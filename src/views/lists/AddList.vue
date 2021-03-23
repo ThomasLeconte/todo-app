@@ -30,6 +30,7 @@ export default {
   },
   mounted() {
     this.$store.commit("todolist/resetErrors");
+    document.title = global.appName+"Add list";
   },
   methods: {
     async submit() {

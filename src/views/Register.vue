@@ -35,6 +35,7 @@ export default {
   },
   mounted(){
     this.$store.commit("account/resetErrors");
+    document.title = global.appName+"Register";
   },
   methods: {
     submit(){
